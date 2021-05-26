@@ -1,0 +1,52 @@
+# ignore editor backup files
+*.bak
+*~
+
+# ignore Quartus generated files
+*sopc_*
+*.jdi
+*.ptf.*
+*.pof
+*.qws
+*.smsg
+*_inst.vhd
+*_generation_script*
+*.done
+*.txt
+*.qarlog
+*.rpt
+*.summary
+*.qws
+*.cmp
+*.eqn
+*.html
+*.jpg
+*.bak
+*.bak*
+*.qar
+*.sopc_builder
+*example*
+*.tcl
+*.pin
+*.mif
+*.hex
+*.sld
+*.log
+
+# keep generated binaries from output_files
+!*.sof
+!*.pof
+
+# ignore Quartus generated folders
+*/db/
+*/incremental_db/
+*/simulation/
+*/.qsys_edit/
+
+# ignore some custom folders
+*/DELETEME/
+QUARTUS-SoC/CODE_qsys/nmr_parameters
+QUARTUS-SoC/CODE_qsys/soc_system
+QUARTUS-SoC/CODE_qsys/subsystemG
+QUARTUS-SoC/CODE_qsys/soc_system_v5
+QUARTUS-SoC/CODE_qsys/soc_system_v4
