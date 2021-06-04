@@ -1,0 +1,54 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL
+vGNRL_bitstr_cnt
+Z1 !s110 1622564410
+!i10b 1
+!s100 b<[f[3kGK0YBlk^TobI]F2
+IjV?Yef=DgilUOnO_Q0=R<3
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1622564095
+8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v
+FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1622564410.000000
+!s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v|
+!s90 -reportprogress|300|-work|work|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+n@g@n@r@l_bitstr_cnt
+vGNRL_bitstr_cnt_tb
+R1
+!i10b 1
+!s100 aX@[H^I8`=Ugm6Io2mZW71
+IzHSh]387M@KT2JY<5c2ff1
+R2
+R0
+w1622564404
+8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v
+FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v|
+!s90 -reportprogress|300|-work|work|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v|
+!i113 1
+R5
+R6
+n@g@n@r@l_bitstr_cnt_tb

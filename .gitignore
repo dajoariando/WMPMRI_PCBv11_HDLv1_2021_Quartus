@@ -35,7 +35,6 @@
 
 # keep generated binaries from output_files
 !*.sof
-!*.pof
 
 # ignore Quartus generated folders
 */db/
@@ -45,8 +44,6 @@
 
 # ignore some custom folders
 */DELETEME/
-QUARTUS-SoC/CODE_qsys/nmr_parameters
-QUARTUS-SoC/CODE_qsys/soc_system
-QUARTUS-SoC/CODE_qsys/subsystemG
-QUARTUS-SoC/CODE_qsys/soc_system_v5
-QUARTUS-SoC/CODE_qsys/soc_system_v4
+Quartus_SoC/hps_isw_handoff/
+Quartus_SoC/soc_system/
+Quartus_SoC/hps_sdram_p0_summary.csv
