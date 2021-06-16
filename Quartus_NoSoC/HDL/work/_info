@@ -9,23 +9,23 @@ z2
 cModel Technology
 Z0 dD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL
 vGNRL_bitstr_cnt
-Z1 !s110 1622564410
+Z1 !s110 1623802789
 !i10b 1
-!s100 b<[f[3kGK0YBlk^TobI]F2
-IjV?Yef=DgilUOnO_Q0=R<3
+!s100 ;^f[zbm6cIl4D]=];62N[3
+I@JU?zjzd3@oe`;?4Mf5l;3
 Z2 VDg1SIo80bB@j0V0VzS_@n1
 R0
-w1622564095
+w1622565134
 8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v
 FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v
-L0 1
+L0 10
 Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1622564410.000000
+Z4 !s108 1623802789.000000
 !s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v|
-!s90 -reportprogress|300|-work|work|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v|
 !i113 1
 Z5 o-work work
 Z6 tCvgOpt 0
@@ -33,11 +33,11 @@ n@g@n@r@l_bitstr_cnt
 vGNRL_bitstr_cnt_tb
 R1
 !i10b 1
-!s100 aX@[H^I8`=Ugm6Io2mZW71
-IzHSh]387M@KT2JY<5c2ff1
+!s100 MgM<C=i<ih;@BF6mNTSPi2
+IDlQ`29Rabin=On9lnWhVY2
 R2
 R0
-w1622564404
+w1622565101
 8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v
 FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v
 L0 3
@@ -47,8 +47,108 @@ r1
 31
 R4
 !s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v|
-!s90 -reportprogress|300|-work|work|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v|
+!s90 -reportprogress|300|-work|work|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt_tb.v|
 !i113 1
 R5
 R6
 n@g@n@r@l_bitstr_cnt_tb
+vNMR_bit_streamer
+Z7 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+R1
+!i10b 1
+!s100 k:E7iG^eim?_6[kF4DgDU3
+IH>_4K:hF_X3kYB7ibCO0Y2
+R2
+!s105 NMR_bit_streamer_sv_unit
+S1
+R0
+w1623795946
+8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer.sv
+FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer.sv
+L0 9
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer.sv|
+!i113 1
+Z8 o-work work -sv
+R6
+n@n@m@r_bit_streamer
+vNMR_bit_streamer_cnt
+R7
+R1
+!i10b 1
+!s100 ?VDjX=Ljz]jTkU53aQQWZ3
+I52Xl>dzf<9En>[DdP1V:P2
+R2
+!s105 NMR_bit_streamer_cnt_sv_unit
+S1
+R0
+w1623802292
+8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv
+FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv
+L0 18
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv|
+!i113 1
+R8
+R6
+n@n@m@r_bit_streamer_cnt
+vNMR_bit_streamer_cnt_tb
+R7
+R1
+!i10b 1
+!s100 HHS3<d^G6YS^=5]Q0JlQ10
+I_6_IIlgV9dn2:zFCC:Dl]1
+R2
+!s105 NMR_bit_streamer_cnt_tb_sv_unit
+S1
+R0
+w1623802766
+8D:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv
+FD:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv
+L0 9
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv|
+!i113 1
+R8
+R6
+n@n@m@r_bit_streamer_cnt_tb
+vNMR_bit_streamer_tb
+R7
+R1
+!i10b 1
+!s100 O;h=WOiDgIc>;T374lIG;0
+I9mbaYHV>1eK]Z??7CV>`S2
+R2
+!s105 NMR_bit_streamer_tb_sv_unit
+S1
+R0
+w1623779820
+8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_tb.sv
+FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_tb.sv
+L0 9
+R3
+r1
+!s85 0
+31
+R4
+!s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_tb.sv|
+!i113 1
+R8
+R6
+n@n@m@r_bit_streamer_tb
