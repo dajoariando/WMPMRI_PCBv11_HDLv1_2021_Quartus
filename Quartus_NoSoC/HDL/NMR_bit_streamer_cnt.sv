@@ -131,6 +131,7 @@ module NMR_bit_streamer_cnt
 					
 					SRAM_CS <= 1'b1;
 					SRAM_ADDR <= cmd_ctr;
+					BT_START <= 1'b0;
 				
 					State <= S2;
 					

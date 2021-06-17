@@ -9,7 +9,7 @@ z2
 cModel Technology
 Z0 dD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL
 vGNRL_bitstr_cnt
-Z1 !s110 1623802789
+Z1 !s110 1623875141
 !i10b 1
 !s100 ;^f[zbm6cIl4D]=];62N[3
 I@JU?zjzd3@oe`;?4Mf5l;3
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1623802789.000000
+Z4 !s108 1623875141.000000
 !s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v|
 !s90 -reportprogress|300|-work|work|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/GNRL_bitstr_cnt.v|
 !i113 1
@@ -56,13 +56,13 @@ vNMR_bit_streamer
 Z7 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
 R1
 !i10b 1
-!s100 k:E7iG^eim?_6[kF4DgDU3
-IH>_4K:hF_X3kYB7ibCO0Y2
+!s100 1UUMzFB`OEceGf3<89QBA0
+Ia64^h0ZN3m1nNCoFKdBmK2
 R2
 !s105 NMR_bit_streamer_sv_unit
 S1
 R0
-w1623795946
+w1623873811
 8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer.sv
 FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer.sv
 L0 9
@@ -79,15 +79,15 @@ R6
 n@n@m@r_bit_streamer
 vNMR_bit_streamer_cnt
 R7
-R1
+Z9 !s110 1623875142
 !i10b 1
-!s100 ?VDjX=Ljz]jTkU53aQQWZ3
-I52Xl>dzf<9En>[DdP1V:P2
+!s100 9]YzfCG1<?oj]mHZGl5k@2
+ITknJeOGXRgg]PN`BB:AZ52
 R2
 !s105 NMR_bit_streamer_cnt_sv_unit
 S1
 R0
-w1623802292
+w1623873286
 8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv
 FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv
 L0 18
@@ -95,7 +95,7 @@ R3
 r1
 !s85 0
 31
-R4
+Z10 !s108 1623875142.000000
 !s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bit_streamer_cnt.sv|
 !i113 1
@@ -104,7 +104,7 @@ R6
 n@n@m@r_bit_streamer_cnt
 vNMR_bit_streamer_cnt_tb
 R7
-R1
+R9
 !i10b 1
 !s100 HHS3<d^G6YS^=5]Q0JlQ10
 I_6_IIlgV9dn2:zFCC:Dl]1
@@ -112,7 +112,7 @@ R2
 !s105 NMR_bit_streamer_cnt_tb_sv_unit
 S1
 R0
-w1623802766
+w1623874275
 8D:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv
 FD:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv
 L0 9
@@ -120,7 +120,7 @@ R3
 r1
 !s85 0
 31
-R4
+R10
 !s107 D:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv|
 !s90 -reportprogress|300|-work|work|-sv|-stats=none|D:\WMPMRI_PCBv11_HDLv1_2021_Quartus\Quartus_NoSoC\HDL\NMR_bit_streamer_cnt_tb.sv|
 !i113 1
@@ -129,7 +129,7 @@ R6
 n@n@m@r_bit_streamer_cnt_tb
 vNMR_bit_streamer_tb
 R7
-R1
+R9
 !i10b 1
 !s100 O;h=WOiDgIc>;T374lIG;0
 I9mbaYHV>1eK]Z??7CV>`S2
@@ -152,3 +152,53 @@ R4
 R8
 R6
 n@n@m@r_bit_streamer_tb
+vNMR_bstrm
+R7
+R9
+!i10b 1
+!s100 6<nDNn;NQ>nS_OCB?:Tc`0
+IX6Ka[AW]Y<ojZ1l@VJGTS1
+R2
+!s105 NMR_bstrm_sv_unit
+S1
+R0
+w1623874939
+8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm.sv
+FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm.sv
+L0 6
+R3
+r1
+!s85 0
+31
+R10
+!s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm.sv|
+!i113 1
+R8
+R6
+n@n@m@r_bstrm
+vNMR_bstrm_tb
+R7
+R9
+!i10b 1
+!s100 GclWMc5O>enH21Oj?8K=J2
+IF5:Ae0=^B0gW4YBmW:<fk0
+R2
+!s105 NMR_bstrm_tb_sv_unit
+S1
+R0
+w1623875134
+8D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_tb.sv
+FD:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_tb.sv
+L0 9
+R3
+r1
+!s85 0
+31
+R10
+!s107 D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_tb.sv|
+!s90 -reportprogress|300|-work|work|-sv|-stats=none|D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_tb.sv|
+!i113 1
+R8
+R6
+n@n@m@r_bstrm_tb

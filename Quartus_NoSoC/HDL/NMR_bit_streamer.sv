@@ -58,7 +58,7 @@ module NMR_bit_streamer
 		begin
 			State <= S0;
 			OUT <= 1'b0;
-			DONE <= 1'b1;
+			DONE <= 1'b0;
 		end
 		
 		else

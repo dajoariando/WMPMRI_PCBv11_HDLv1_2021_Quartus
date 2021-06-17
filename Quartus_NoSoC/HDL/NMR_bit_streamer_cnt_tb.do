@@ -24,7 +24,7 @@ add wave -noupdate /NMR_bit_streamer_cnt_tb/DUT/loop_sto_reg
 add wave -noupdate /NMR_bit_streamer_cnt_tb/DUT/seq_end_reg
 add wave -noupdate -radix hexadecimal /NMR_bit_streamer_cnt_tb/DUT/loop_ctr
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {16384452 ps} 0}
+WaveRestoreCursors {{Cursor 1} {10039929 ps} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 282
 configure wave -valuecolwidth 175
