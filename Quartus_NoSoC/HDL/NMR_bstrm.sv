@@ -20,7 +20,7 @@ module NMR_bstrm
 (
 	
 	input START,
-	output DONE,
+	output reg DONE,
 	
 	// SRAM access
 	output [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR,		// SRAM address
@@ -45,6 +45,7 @@ module NMR_bstrm
 	wire [IDLY_WIDTH-1:0] idly;
 	wire [PLS_WIDTH-1:0] pls;
 	wire [EDLY_WIDTH-1:0] edly;
+	wire BT_CNT_DONE;
 
 
 	NMR_bit_streamer_cnt 
@@ -65,7 +66,7 @@ module NMR_bstrm
 
 		// bitstream signals
 		.START 	(START),
-		.DONE	(DONE),
+		.DONE	(BT_CNT_DONE),
 		
 		// SRAM access
 		.SRAM_ADDR		(SRAM_ADDR),	// SRAM address
@@ -115,5 +116,11 @@ module NMR_bstrm
 		.CLK	(CLK),
 		.RST	(RST)
 	);
+	
+	// generate the bitstream done signal
+	always @(posedge CLK)
+	begin
+		DONE <= BT_CNT_DONE && BT_DONE;
+	end	
 
 endmodule

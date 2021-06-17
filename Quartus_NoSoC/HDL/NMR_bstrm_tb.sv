@@ -95,27 +95,21 @@ module NMR_bstrm_tb ();
 		#(clockticks*10) START = 1;
 		#(clockticks*2) START = 0;
 		
-		#(clockticks*2) SRAM_RD_DAT = (5<<96) | (5<<64) | (5<<32) | (3<<16) | (0<<0);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (5<<64) | (5<<32) | (4<<16) | (0<<0); wait(!SRAM_CS);
 		
-		#(clockticks*10) SRAM_RD_DAT = (5<<96) | (5<<64) | (5<<32) | (3<<16) | (1<<1);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<1);wait(!SRAM_CS);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<0);wait(!SRAM_CS);
 		
-		#(clockticks*30) SRAM_RD_DAT = (15<<96) | (21<<64) | (7<<32) | (3<<16) | (1<<0);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<1);wait(!SRAM_CS);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<0);wait(!SRAM_CS);
 		
-		#(clockticks*30) SRAM_RD_DAT = (10<<96) | (5<<64) | (23<<32) | (3<<16) | (1<<1);
-
-		#(clockticks*4) SRAM_RD_DAT = (15<<96) | (21<<64) | (7<<32) | (3<<16) | (1<<0);
-
-		#(clockticks*4) SRAM_RD_DAT = (10<<96) | (5<<64) | (23<<32) | (3<<16) | (1<<1);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<1);wait(!SRAM_CS);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<0);wait(!SRAM_CS);
 		
-		#(clockticks*4) SRAM_RD_DAT = (15<<96) | (21<<64) | (7<<32) | (3<<16) | (1<<0);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<1);wait(!SRAM_CS);
+		wait(SRAM_CS); SRAM_RD_DAT = (5<<96) | (8<<64) | (5<<32) | (4<<16) | (1<<0);wait(!SRAM_CS);
 		
-		#(clockticks*4) SRAM_RD_DAT = (10<<96) | (5<<64) | (23<<32) | (3<<16) | (1<<2);
-		
-		#(clockticks*4) SRAM_RD_DAT = (15<<96) | (21<<64) | (7<<32) | (3<<16) | (0<<0);
-		
-		#(clockticks*4) SRAM_RD_DAT = (10<<96) | (5<<64) | (23<<32) | (3<<16) | (0<<0);
-		
-		#(clockticks*4) SRAM_RD_DAT = (15<<96) | (21<<64) | (7<<32) | (3<<16) | (0<<0);
+		wait(SRAM_CS); SRAM_RD_DAT = (10<<96) | (10<<64) | (10<<32) | (4<<16) | (1<<2);wait(!SRAM_CS);
 		
 		
 	end

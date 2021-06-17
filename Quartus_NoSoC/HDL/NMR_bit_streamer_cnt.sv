@@ -70,15 +70,16 @@ module NMR_bit_streamer_cnt
 	
 	reg [8:0] State;
 	localparam [8:0]
-		S0 = 9'b000000001,
-		S1 = 9'b000000010,
-		S2 = 9'b000000100,
-		S3 = 9'b000001000,
-		S4 = 9'b000010000,
-		S5 = 9'b000100000,
-		S6 = 9'b001000000,
-		S7 = 9'b010000000,
-		S8 = 9'b100000000;
+		S0 = 10'b0000000001,
+		S1 = 10'b0000000010,
+		S2 = 10'b0000000100,
+		S3 = 10'b0000001000,
+		S4 = 10'b0000010000,
+		S5 = 10'b0000100000,
+		S6 = 10'b0001000000,
+		S7 = 10'b0010000000,
+		S8 = 10'b0100000000,
+		S9 = 10'b1000000000;
 
 	initial begin
 		State <= S0;
@@ -142,6 +143,13 @@ module NMR_bit_streamer_cnt
 					
 					SRAM_CS <= 1'b0;
 					
+					State <= S9;
+					
+				end
+				
+				S9: // read the command
+				begin
+				
 					idly_reg <= SRAM_RD_DAT[IDLY_WIDTH+PLS_WIDTH+EDLY_WIDTH+CNT_WIDTH-1 : PLS_WIDTH+EDLY_WIDTH+CNT_WIDTH];
 					pls_reg <= SRAM_RD_DAT[PLS_WIDTH+EDLY_WIDTH+CNT_WIDTH-1 : EDLY_WIDTH+CNT_WIDTH];
 					edly_reg <= SRAM_RD_DAT[EDLY_WIDTH+CNT_WIDTH-1 : CNT_WIDTH];
@@ -150,10 +158,10 @@ module NMR_bit_streamer_cnt
 					loop_sto_reg <= SRAM_RD_DAT[0];
 					
 					if (first_rd == 1'b1) // read the loop counter only after the START signal and only once every sequence
-						loop_ctr <= {1'b1,{(LOOP_WIDTH-1){1'b0}}} - SRAM_RD_DAT[LOOP_WIDTH+16:16] + 1'b1; // 16 is a fix number to store the loop parameter
+						loop_ctr <= {1'b1,{(LOOP_WIDTH-1){1'b0}}} - SRAM_RD_DAT[LOOP_WIDTH+16:16] + 1'b1; // 16 is a fix offset bit to store the loop parameter
 					
 					State <= S3;
-					
+				
 				end
 				
 				S3: // parse the command
