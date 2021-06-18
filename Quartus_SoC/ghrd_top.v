@@ -337,6 +337,7 @@ module ghrd_top(
 		
 	);
 
+	/*
 	CDC_Input_Synchronizer
 	#(
 		.SYNC_REG_LEN (2)
@@ -395,18 +396,19 @@ module ghrd_top(
 
 	assign GPIO_0[31:0] = bitstr_out;
 	assign GPIO_1[35] = bitstr_fifo_valid;
+	*/
 
 
-
-	localparam IDLY_WIDTH = 32; // the initial delay width
-	localparam PLS_WIDTH = 32; // the pulse width
-	localparam EDLY_WIDTH = 32; // post-pulse delay width
+	// localparam IDLY_WIDTH = 32; // the initial delay width
+	// localparam PLS_WIDTH = 32; // the pulse width
+	// localparam EDLY_WIDTH = 32; // post-pulse delay width
 	localparam CNT_WIDTH = 32;	// the control signal width
 	localparam CMD_WIDTH = 8;		// the command counter width
 	localparam LOOP_WIDTH = 16;		// loop width for the looping parameter
 	localparam SRAM_ADDR_WIDTH = 8; // the SRAM address width; find it in Platform Designer of the On-Chip Memory (RAM)
 	localparam SRAM_DAT_WIDTH = 128; // the SRAM data width; find it in Platform Designer of the On-Chip Memory (RAM)
 	localparam SRAM_BYTEEN_WIDTH = 16; // the byte enable width; find it in Platform Designer of the On-Chip Memory (RAM)
+	localparam DATA_WIDTH = 120;
 	
 	// bitstream signals
 	wire bitstr_adv_start	/* synthesis keep */;
@@ -416,13 +418,13 @@ module ghrd_top(
 	// SRAM access
 	wire[SRAM_ADDR_WIDTH-1:0] SRAM_ADDR	/* synthesis keep */;		// SRAM address
 	wire SRAM_CS /* synthesis keep */;								// SRAM chip select
-	wire SRAM_CLKEN;							// SRAM clock enable
-	wire SRAM_WR;								// SRAM write
+	wire SRAM_CLKEN;												// SRAM clock enable
+	wire SRAM_WR;													// SRAM write
 	wire [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT	/* synthesis keep */;	// SRAM read data
-	wire [SRAM_DAT_WIDTH-1:0]	SRAM_WR_DAT;	// SRAM write data
-	wire [SRAM_BYTEEN_WIDTH-1:0] SRAM_BYTEEN;	// SRAM byte enable
+	wire [SRAM_DAT_WIDTH-1:0]	SRAM_WR_DAT;						// SRAM write data
+	wire [SRAM_BYTEEN_WIDTH-1:0] SRAM_BYTEEN;						// SRAM byte enable
 	
-	
+	/*
 	NMR_bstrm_pls_top
 	#(
 		
@@ -459,8 +461,42 @@ module ghrd_top(
 		.RST			(bitstr_adv_rst)
 		
 	);
+	*/
 
-
+	NMR_bstrm_arb_top
+	#(
+		
+		.DATA_WIDTH			(DATA_WIDTH),		// the pulse width
+		.CNT_WIDTH			(CNT_WIDTH),		// the control signal width
+		.CMD_WIDTH			(CMD_WIDTH),		// the command counter width
+		.LOOP_WIDTH			(LOOP_WIDTH),		// loop width for the looping parameter
+		.SRAM_ADDR_WIDTH	(SRAM_ADDR_WIDTH),	// the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
+		.SRAM_DAT_WIDTH		(SRAM_DAT_WIDTH),	// the SRAM data width, find it in Platform Designer of the On-Chip Memory (RAM)
+		.SRAM_BYTEEN_WIDTH	(SRAM_BYTEEN_WIDTH) // the byte enable width, find it in Platform Designer of the On-Chip Memory (RAM)
+		
+	) DUT
+	(
+		
+		.START	(bitstr_adv_start),
+		.DONE	(bitstr_adv_done),
+		
+		// SRAM access
+		.SRAM_ADDR		(SRAM_ADDR),	// SRAM address
+		.SRAM_CS		(SRAM_CS),		// SRAM chip select
+		.SRAM_CLKEN		(SRAM_CLKEN),	// SRAM clock enable
+		.SRAM_WR		(SRAM_WR),		// SRAM write
+		.SRAM_RD_DAT	(SRAM_RD_DAT),	// SRAM read data
+		.SRAM_WR_DAT	(SRAM_WR_DAT),	// SRAM write data
+		.SRAM_BYTEEN	(SRAM_BYTEEN),	// SRAM byte enable
+		
+		// bitstream data .
+		.OUT	(GPIO_1[0]),
+		
+		// control signals
+		.CLK	(CLOCK_50),
+		.RST	(bitstr_adv_rst)
+		
+	);
 
 
 
