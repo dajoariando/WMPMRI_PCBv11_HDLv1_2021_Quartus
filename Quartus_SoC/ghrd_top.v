@@ -369,11 +369,11 @@ module ghrd_top(
 	);
 
 
-	GNRL_bitstr_cnt
+	NMR_bstrm_fifo
 	# (
 		.BUS_WIDTH (BUS_WIDTH)
 	)
-	GNRL_bitstr_cnt_1
+	NMR_bstrm_fifo_1
 	(
 		// bitstream signals
 		.START (bitstr_start_sync),	// start taking ada from the FIFO
@@ -423,7 +423,7 @@ module ghrd_top(
 	wire [SRAM_BYTEEN_WIDTH-1:0] SRAM_BYTEEN;	// SRAM byte enable
 	
 	
-	NMR_bstrm
+	NMR_bstrm_pls_top
 	#(
 		
 		.IDLY_WIDTH			(IDLY_WIDTH), 		// the initial delay width
