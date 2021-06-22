@@ -1,20 +1,10 @@
 // author: David Ariando
 // date: 17th June 2021
 // operation details:
-// this module takes a variable of ....
-// and ...
-// data format: [idly, pls, edly, cnt] or [initial delay, pulse length, delay post-pulse, control signal]
-// the control signal format is:
-// 		bit 31:16	- number of repetition
-//		bit 2		- end of sequence
-//		bit 1		- start loop
-//		bit 0		- end loop
-
-// restrictions:
-// the loop start and loop stop cannot be at the same data. Otherwise only loop start will be read.
-// the loop number put into the SRAM is maximum 15-bit, because the first bit is used as the counter overflow bit.
-// the loop start cannot be at the first bitstream, put it into the 2nd one at least
-// the sequence coded along with the end_of_sequence bit won't be streamed out, so make sure the last doesn't contain any streaming output.
+// this module takes input from an SRAM, process looping parameter, and generate a control signal for the datapath.
+// there are 3 modes of operation: all-1s, all-0s, or arbitrary pattern.
+// for all-1s and all-0s, the data_reg contains length of the signal.
+// for arbitrary pattern, the data_reg contains the pattern itself.
 
 module NMR_bstrm_arb_cnt 
 #(

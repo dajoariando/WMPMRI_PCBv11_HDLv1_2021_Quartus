@@ -79,8 +79,8 @@ module NMR_bstrm_arb_top
 		.SRAM_BYTEEN	(SRAM_BYTEEN),		// SRAM byte enable
 		
 		// bitstream control data
-		.DPATH_START				(DPATH_START),
-		.DPATH_BUF_RDY				(DPATH_BUF_RDY),
+		.DPATH_START		(DPATH_START),
+		.DPATH_BUF_RDY		(DPATH_BUF_RDY),
 		.data_reg			(data),
 		.seq_end_reg		(end_of_sequence), // the end of sequence signal
 		.pattern_mode_reg	(pattern_mode),	// pattern mode signal

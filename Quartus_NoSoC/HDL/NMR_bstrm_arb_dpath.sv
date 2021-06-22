@@ -1,8 +1,9 @@
 // author: David Ariando
 // date: 15th June 2021
 // operation details:
-// this module takes a variable of ....
-// and ...
+// In pattern mode, this module takes a pattern inside the data register and output it to the output pin.
+// or in all_1s_mode, it generates a high pulse for the length that is stored inside data register.
+// or in all_0s_mode, it generates a low pulse for the length that is stored inside the data register.
 
 `timescale 1ps / 1ps
 
