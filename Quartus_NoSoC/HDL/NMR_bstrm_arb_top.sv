@@ -38,12 +38,6 @@ module NMR_bstrm_arb_top
 	
 );
 	
-	// parameters are referenced in MHz for calculation
-	parameter timescale_ref = 1000000; // reference scale based on timescale => 1ps => 1THz => 1000000 MHz
-	parameter CLK_RATE_HZ = 4.3; // in MHz
-	localparam integer clockticks = (timescale_ref / CLK_RATE_HZ) / 2.0;
-	
-	
 	// bitstream control data
 	wire DPATH_START;
 	wire DPATH_BUF_RDY;

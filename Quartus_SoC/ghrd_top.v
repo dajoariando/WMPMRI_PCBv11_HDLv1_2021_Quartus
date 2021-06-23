@@ -333,9 +333,13 @@ module ghrd_top(
         .ram_tx_en_s2_writedata                (SRAM_WR_DAT),		// .writedata
         .ram_tx_en_s2_byteenable               (SRAM_BYTEEN),		// .byteenable
         .ram_tx_en_clk2_clk                    (CLOCK_50),		// .ram_tx_en_clk2.clk
-        .ram_tx_en_reset2_reset                (bitstr_adv_rst) 		// .ram_tx_en_reset2.reset
+        .ram_tx_en_reset2_reset                (bitstr_adv_rst), 		// .ram_tx_en_reset2.reset
 		
-	);
+		.tx_h1_cntl_start                      (bitstr_adv_start),                      //                     tx_h1_cntl.start
+        .tx_h1_cntl_done                       (tx_h1_done),                       //                               .done
+        .tx_h1_cntl_out                        (GPIO_1[2]),                        //                               .out
+        .bstream_rst_reset                     (bitstr_adv_rst)                        //                      tx_h1_rst.reset
+    );
 
 	/*
 	CDC_Input_Synchronizer
@@ -412,7 +416,7 @@ module ghrd_top(
 	
 	// bitstream signals
 	wire bitstr_adv_start	/* synthesis keep */;
-	wire bitstr_adv_done	/* synthesis keep */;
+	wire bitstr_adv_done, tx_h1_done	/* synthesis keep */;
 	wire bitstr_adv_rst;
 	
 	// SRAM access
@@ -517,53 +521,53 @@ module ghrd_top(
 
 
 
-// Debounce logic to clean out glitches within 1ms
-debounce debounce_inst (
-	.clk                                  (CLOCK_50),
-	.reset_n                              (hps_fpga_reset_n),  
-	.data_in                              (KEY),
-	.data_out                             (fpga_debounced_buttons)
-);
-defparam debounce_inst.WIDTH = 4;
-defparam debounce_inst.POLARITY = "LOW";
-defparam debounce_inst.TIMEOUT = 50000;               // at 50Mhz this is a debounce time of 1ms
-defparam debounce_inst.TIMEOUT_WIDTH = 16;            // ceil(log2(TIMEOUT))
-  
-// Source/Probe megawizard instance
-hps_reset hps_reset_inst (
-	.source_clk (CLOCK_50),
-	.source     (hps_reset_req)
-);
+	// Debounce logic to clean out glitches within 1ms
+	debounce debounce_inst (
+		.clk                                  (CLOCK_50),
+		.reset_n                              (hps_fpga_reset_n),  
+		.data_in                              (KEY),
+		.data_out                             (fpga_debounced_buttons)
+	);
+	defparam debounce_inst.WIDTH = 4;
+	defparam debounce_inst.POLARITY = "LOW";
+	defparam debounce_inst.TIMEOUT = 50000;               // at 50Mhz this is a debounce time of 1ms
+	defparam debounce_inst.TIMEOUT_WIDTH = 16;            // ceil(log2(TIMEOUT))
+	  
+	// Source/Probe megawizard instance
+	hps_reset hps_reset_inst (
+		.source_clk (CLOCK_50),
+		.source     (hps_reset_req)
+	);
 
-altera_edge_detector pulse_cold_reset (
-	.clk       (CLOCK_50),
-	.rst_n     (hps_fpga_reset_n),
-	.signal_in (hps_reset_req[0]),
-	.pulse_out (hps_cold_reset)
-);
-defparam pulse_cold_reset.PULSE_EXT = 6;
-defparam pulse_cold_reset.EDGE_TYPE = 1;
-defparam pulse_cold_reset.IGNORE_RST_WHILE_BUSY = 1;
+	altera_edge_detector pulse_cold_reset (
+		.clk       (CLOCK_50),
+		.rst_n     (hps_fpga_reset_n),
+		.signal_in (hps_reset_req[0]),
+		.pulse_out (hps_cold_reset)
+	);
+	defparam pulse_cold_reset.PULSE_EXT = 6;
+	defparam pulse_cold_reset.EDGE_TYPE = 1;
+	defparam pulse_cold_reset.IGNORE_RST_WHILE_BUSY = 1;
 
-altera_edge_detector pulse_warm_reset (
-	.clk       (CLOCK_50),
-	.rst_n     (hps_fpga_reset_n),
-	.signal_in (hps_reset_req[1]),
-	.pulse_out (hps_warm_reset)
-);
-defparam pulse_warm_reset.PULSE_EXT = 2;
-defparam pulse_warm_reset.EDGE_TYPE = 1;
-defparam pulse_warm_reset.IGNORE_RST_WHILE_BUSY = 1;
-  
-altera_edge_detector pulse_debug_reset (
-	.clk       (CLOCK_50),
-	.rst_n     (hps_fpga_reset_n),
-	.signal_in (hps_reset_req[2]),
-	.pulse_out (hps_debug_reset)
-);
-defparam pulse_debug_reset.PULSE_EXT = 32;
-defparam pulse_debug_reset.EDGE_TYPE = 1;
-defparam pulse_debug_reset.IGNORE_RST_WHILE_BUSY = 1;
+	altera_edge_detector pulse_warm_reset (
+		.clk       (CLOCK_50),
+		.rst_n     (hps_fpga_reset_n),
+		.signal_in (hps_reset_req[1]),
+		.pulse_out (hps_warm_reset)
+	);
+	defparam pulse_warm_reset.PULSE_EXT = 2;
+	defparam pulse_warm_reset.EDGE_TYPE = 1;
+	defparam pulse_warm_reset.IGNORE_RST_WHILE_BUSY = 1;
+	  
+	altera_edge_detector pulse_debug_reset (
+		.clk       (CLOCK_50),
+		.rst_n     (hps_fpga_reset_n),
+		.signal_in (hps_reset_req[2]),
+		.pulse_out (hps_debug_reset)
+	);
+	defparam pulse_debug_reset.PULSE_EXT = 32;
+	defparam pulse_debug_reset.EDGE_TYPE = 1;
+	defparam pulse_debug_reset.IGNORE_RST_WHILE_BUSY = 1;
 
 endmodule
 

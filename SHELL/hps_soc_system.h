@@ -21,6 +21,17 @@
  */
 
 /*
+ * Macros for device 'tx_H1', class 'bstream'
+ * The macros are prefixed with 'TX_H1_'.
+ * The prefix is the slave descriptor.
+ */
+#define TX_H1_COMPONENT_TYPE bstream
+#define TX_H1_COMPONENT_NAME tx_H1
+#define TX_H1_BASE 0x0
+#define TX_H1_SPAN 4096
+#define TX_H1_END 0xfff
+
+/*
  * Macros for device 'sys_pll_reconfig', class 'altera_pll_reconfig'
  * The macros are prefixed with 'SYS_PLL_RECONFIG_'.
  * The prefix is the slave descriptor.

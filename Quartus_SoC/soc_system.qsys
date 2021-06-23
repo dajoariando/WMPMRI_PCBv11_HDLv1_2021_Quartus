@@ -33,6 +33,14 @@
          type = "String";
       }
    }
+   element bstream_rst
+   {
+      datum _sortIndex
+      {
+         value = "18";
+         type = "int";
+      }
+   }
    element button_pio
    {
       datum _sortIndex
@@ -305,6 +313,14 @@
          type = "String";
       }
    }
+   element tx_H1
+   {
+      datum _sortIndex
+      {
+         value = "17";
+         type = "int";
+      }
+   }
 }
 ]]></parameter>
  <parameter name="clockCrossingAdapter" value="HANDSHAKE" />
@@ -339,6 +355,11 @@
  <interface
    name="bitstr_fifo_reset_out"
    internal="bitstr_fifo.reset_out"
+   type="reset"
+   dir="end" />
+ <interface
+   name="bstream_rst"
+   internal="bstream_rst.in_reset"
    type="reset"
    dir="end" />
  <interface
@@ -421,6 +442,7 @@
    type="conduit"
    dir="end" />
  <interface name="sys_pll_reset" internal="sys_pll.reset" type="reset" dir="end" />
+ <interface name="tx_h1_cntl" internal="tx_H1.cntl" type="conduit" dir="end" />
  <module
    name="bitstr_fifo"
    kind="altera_avalon_fifo"
@@ -445,6 +467,17 @@
   <parameter name="useReadControl" value="false" />
   <parameter name="useRegister" value="false" />
   <parameter name="useWriteControl" value="true" />
+ </module>
+ <module
+   name="bstream_rst"
+   kind="altera_reset_bridge"
+   version="17.1"
+   enabled="1">
+  <parameter name="ACTIVE_LOW_RESET" value="0" />
+  <parameter name="AUTO_CLK_CLOCK_RATE" value="50000000" />
+  <parameter name="NUM_RESET_OUTPUTS" value="1" />
+  <parameter name="SYNCHRONOUS_EDGES" value="deassert" />
+  <parameter name="USE_RESET_REQUEST" value="0" />
  </module>
  <module name="button_pio" kind="altera_avalon_pio" version="17.1" enabled="1">
   <parameter name="bitClearingEdgeCapReg" value="true" />
@@ -1391,6 +1424,15 @@
    enabled="0">
   <parameter name="id" value="-1395322110" />
  </module>
+ <module name="tx_H1" kind="bstream" version="1.0" enabled="1">
+  <parameter name="CMD_WIDTH" value="8" />
+  <parameter name="CNT_WIDTH" value="32" />
+  <parameter name="DATA_WIDTH" value="120" />
+  <parameter name="LOOP_WIDTH" value="16" />
+  <parameter name="SRAM_ADDR_WIDTH" value="8" />
+  <parameter name="SRAM_BYTEEN_WIDTH" value="16" />
+  <parameter name="SRAM_DAT_WIDTH" value="128" />
+ </module>
  <connection
    kind="avalon"
    version="17.1"
@@ -1398,6 +1440,15 @@
    end="bitstr_fifo.in">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x00011000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="hps_0.h2f_axi_master"
+   end="tx_H1.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1584,6 +1635,7 @@
  <connection kind="clock" version="17.1" start="clk_0.clk" end="jtag_uart.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="cnt_out.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="cnt_in.clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="bstream_rst.clk" />
  <connection
    kind="clock"
    version="17.1"
@@ -1620,7 +1672,9 @@
    version="17.1"
    start="clk_0.clk"
    end="sys_pll_reconfig.mgmt_clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_H1.rd_clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="sys_pll.refclk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_H1.wr_clk" />
  <connection
    kind="conduit"
    version="17.1"
@@ -1755,6 +1809,11 @@
    version="17.1"
    start="clk_0.clk_reset"
    end="intr_capturer_0.reset_sink" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="bstream_rst.out_reset"
+   end="tx_H1.rst" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
