@@ -81,11 +81,7 @@ module NMR_bstrm_arb_mm_comp
 		// SRAM access
 		.SRAM_ADDR		(SRAM_RD_ADDR),	// SRAM address
 		.SRAM_CS		(),				// SRAM chip select
-		.SRAM_CLKEN		(),				// SRAM clock enable
-		.SRAM_WR		(),				// SRAM write
 		.SRAM_RD_DAT	(SRAM_RD_DAT),	// SRAM read data
-		.SRAM_WR_DAT	(),				// SRAM write data
-		.SRAM_BYTEEN	(),				// SRAM byte enable
 		
 		// bitstream data output
 		.OUT	(coe_OUT),

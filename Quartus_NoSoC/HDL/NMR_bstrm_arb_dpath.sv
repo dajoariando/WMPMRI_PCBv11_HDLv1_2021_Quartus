@@ -36,14 +36,16 @@ module NMR_bstrm_arb_dpath
 );
 
 	reg [DATA_WIDTH-1:0] stream_reg;	// the register for streaming data
-	reg [7:0] str_counter_reg;			// the stream counter for shifting out pattern data (where it's maximum is basically the DATA_WIDTH parameter, or 120bits by default)
-	reg [DATA_WIDTH:0] counter_reg;		// the counter for all 1s or all 0s modes
+	reg [7:0] str_counter_reg;		// the stream counter for shifting out pattern data (where it's maximum is basically the DATA_WIDTH parameter, or 120bits by default)
+	reg [DATA_WIDTH:0] counter_reg;	// the counter for all 1s or all 0s modes
+	
+	wire [7:0] strm_len = DATA_WIDTH[7:0];	// the stream length 
 	
 	reg [DATA_WIDTH-1:0] buf_data;	// the data / length of the pulse
-	reg buf_pattern_mode;				// treat the data as patterns
+	reg buf_pattern_mode;			// treat the data as patterns
 	reg buf_all_1_mode;				// generate all 1s at the output and treat the data as length of 1s
 	reg buf_all_0_mode;				// generate all 0s at the output and treat the data as length of 0s
-	reg buf_end_of_sequence;			// end of sequence flag
+	reg buf_end_of_sequence;		// end of sequence flag
 	
 	reg [6:0] State;
 	localparam [6:0]
@@ -112,7 +114,7 @@ module NMR_bstrm_arb_dpath
 					
 					counter_reg <= {1'b1,{(DATA_WIDTH){1'b0}}} - buf_data + 2'b11;
 					stream_reg <= buf_data;
-					str_counter_reg <= {1'b1,{7{1'b0}}} - DATA_WIDTH + 2'b11;
+					str_counter_reg <= {1'b1,{7{1'b0}}} - strm_len + 2'b11;
 					
 					// get the output combinationally
 					if (buf_all_0_mode)

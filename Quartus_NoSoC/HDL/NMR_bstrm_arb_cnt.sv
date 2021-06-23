@@ -24,11 +24,7 @@ module NMR_bstrm_arb_cnt
 	// SRAM access
 	output reg [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR,	// SRAM address
 	output reg SRAM_CS,		// SRAM chip select
-	output SRAM_CLKEN,		// SRAM clock enable
-	output SRAM_WR,			// SRAM write
 	input [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT,		// SRAM read data
-	output [SRAM_DAT_WIDTH-1:0]	SRAM_WR_DAT,		// SRAM write data
-	output [SRAM_BYTEEN_WIDTH-1:0] SRAM_BYTEEN,		// SRAM byte enable
 	
 	// bitstream control data
 	output reg DPATH_START,
@@ -51,12 +47,7 @@ module NMR_bstrm_arb_cnt
 	reg [CMD_WIDTH-1:0] cmd_ctr; // the command counter
 	reg [LOOP_WIDTH-1:0] loop_ctr; // the loop counter
 	reg [CMD_WIDTH-1:0] loop_sta_addr; // the loop start saved address
-	
-	assign SRAM_CLKEN = 1'b1;
-	assign SRAM_WR = 1'b0;
-	assign SRAM_BYTEEN = {SRAM_BYTEEN_WIDTH{1'b1}}; // put all to one to enable all the bytes, probably not necessary for reading the data
-	assign SRAM_WR_DAT = {SRAM_DAT_WIDTH{1'b0}};
-	
+		
 	reg [12:0] State;
 	localparam [12:0]
 		S0 = 13'b0000000000001,

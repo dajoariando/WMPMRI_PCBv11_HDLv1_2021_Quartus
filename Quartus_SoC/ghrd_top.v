@@ -182,6 +182,12 @@ module ghrd_top(
 	wire bitstr_stop_sync					/* synthesis keep */;
 	wire bitstr_end							/* synthesis keep */;	// bitstream end signal issued by the bitstream module
 	
+	// bitstream signals
+	wire bitstr_adv_start /* synthesis keep */;
+	wire bitstr_adv_done /* synthesis keep */;
+	wire tx_h1_done /* synthesis keep */;
+	wire bitstr_adv_rst;
+	
 	//=======================================================
 	//  Structural coding
 	//=======================================================
@@ -320,198 +326,36 @@ module ghrd_top(
 		
 		
 		.cnt_in_export                         ({
+			tx_h1_done,
 			bitstr_adv_done,
 			bitstr_end,
 			sys_pll_lock
 		}),                          //                         cnt_in.export
-		
-		.ram_tx_en_s2_address                  (SRAM_ADDR),		// .ram_tx_en_s2.address
-        .ram_tx_en_s2_chipselect               (SRAM_CS),		// .chipselect
-        .ram_tx_en_s2_clken                    (SRAM_CLKEN),		// .clken
-        .ram_tx_en_s2_write                    (SRAM_WR),		// .write
-        .ram_tx_en_s2_readdata                 (SRAM_RD_DAT),		// .readdata
-        .ram_tx_en_s2_writedata                (SRAM_WR_DAT),		// .writedata
-        .ram_tx_en_s2_byteenable               (SRAM_BYTEEN),		// .byteenable
-        .ram_tx_en_clk2_clk                    (CLOCK_50),		// .ram_tx_en_clk2.clk
-        .ram_tx_en_reset2_reset                (bitstr_adv_rst), 		// .ram_tx_en_reset2.reset
-		
+			
+		.bstream_rst_reset                     (bitstr_adv_rst),                        //                      tx_h1_rst.reset
 		.tx_h1_cntl_start                      (bitstr_adv_start),                      //                     tx_h1_cntl.start
         .tx_h1_cntl_done                       (tx_h1_done),                       //                               .done
-        .tx_h1_cntl_out                        (GPIO_1[2]),                        //                               .out
-        .bstream_rst_reset                     (bitstr_adv_rst)                        //                      tx_h1_rst.reset
+        .tx_h1_cntl_out                        (GPIO_1[1]),                        //                               .out
+        .tx_h2_cntl_start                      (bitstr_adv_start),                    //                     tx_h2_cntl.start
+        .tx_h2_cntl_done                       (),                    //                               .done
+        .tx_h2_cntl_out                        (GPIO_1[5]),                    //                               .out
+        .tx_l1_cntl_start                      (bitstr_adv_start),                    //                     tx_l1_cntl.start
+        .tx_l1_cntl_done                       (),                    //                               .done
+        .tx_l1_cntl_out                        (GPIO_1[2]),                    //                               .out
+        .tx_l2_cntl_start                      (bitstr_adv_start),                    //                     tx_l2_cntl.start
+        .tx_l2_cntl_done                       (),                    //                               .done
+        .tx_l2_cntl_out                        (GPIO_1[4]),                    //                               .out
+        .tx_chrg_cntl_start                    (bitstr_adv_start),                    //                   tx_chrg_cntl.start
+        .tx_chrg_cntl_done                     (),                    //                               .done
+        .tx_chrg_cntl_out                      (GPIO_1[0]),                    //                               .out
+        .tx_damp_cntl_start                    (bitstr_adv_start),                    //                   tx_damp_cntl.start
+        .tx_damp_cntl_done                     (),                    //                               .done
+        .tx_damp_cntl_out                      (GPIO_1[3]),                    //                               .out
+        .tx_dump_cntl_start                    (bitstr_adv_start),                    //                   tx_dump_cntl.start
+        .tx_dump_cntl_done                     (),                    //                               .done
+        .tx_dump_cntl_out                      (GPIO_1[6]),                    //                              
+		
     );
-
-	/*
-	CDC_Input_Synchronizer
-	#(
-		.SYNC_REG_LEN (2)
-	)
-	CDC_Input_Synchronizer_bitstr_start
-	(
-		// Input Signal
-		.ASYNC_IN (bitstr_start),
-		
-		// Output Signal
-		.SYNC_OUT (bitstr_start_sync),
-		
-		// System Signals
-		.CLK (CLOCK_50)
-	);
-	CDC_Input_Synchronizer
-	#(
-		.SYNC_REG_LEN (2)
-	)
-	CDC_Input_Synchronizer_bitstr_stop
-	(
-		// Input Signal
-		.ASYNC_IN (bitstr_stop),
-		
-		// Output Signal
-		.SYNC_OUT (bitstr_stop_sync),
-		
-		// System Signals
-		.CLK (CLOCK_50)
-	);
-
-
-	NMR_bstrm_fifo
-	# (
-		.BUS_WIDTH (BUS_WIDTH)
-	)
-	NMR_bstrm_fifo_1
-	(
-		// bitstream signals
-		.START (bitstr_start_sync),	// start taking ada from the FIFO
-		.READY (bitstr_ready),	// ready to take data (required by the FIFO)
-		.STOP (bitstr_stop_sync), // stop signal from the SoC
-
-		// bitstream data input
-		.bitstr_in (bitstr_fifo_out),
-		
-		// bitstream outputs
-		.bitstr_out (bitstr_out),
-		.D_END (bitstr_end), // the signal that marks the end of the sequence, issued to the SoC
-
-
-		// control signals
-		.CLK (CLOCK_50),
-		.RST (bitstr_rst)
-	);
-
-	assign GPIO_0[31:0] = bitstr_out;
-	assign GPIO_1[35] = bitstr_fifo_valid;
-	*/
-
-
-	// localparam IDLY_WIDTH = 32; // the initial delay width
-	// localparam PLS_WIDTH = 32; // the pulse width
-	// localparam EDLY_WIDTH = 32; // post-pulse delay width
-	localparam CNT_WIDTH = 32;	// the control signal width
-	localparam CMD_WIDTH = 8;		// the command counter width
-	localparam LOOP_WIDTH = 16;		// loop width for the looping parameter
-	localparam SRAM_ADDR_WIDTH = 8; // the SRAM address width; find it in Platform Designer of the On-Chip Memory (RAM)
-	localparam SRAM_DAT_WIDTH = 128; // the SRAM data width; find it in Platform Designer of the On-Chip Memory (RAM)
-	localparam SRAM_BYTEEN_WIDTH = 16; // the byte enable width; find it in Platform Designer of the On-Chip Memory (RAM)
-	localparam DATA_WIDTH = 120;
-	
-	// bitstream signals
-	wire bitstr_adv_start	/* synthesis keep */;
-	wire bitstr_adv_done, tx_h1_done	/* synthesis keep */;
-	wire bitstr_adv_rst;
-	
-	// SRAM access
-	wire[SRAM_ADDR_WIDTH-1:0] SRAM_ADDR	/* synthesis keep */;		// SRAM address
-	wire SRAM_CS /* synthesis keep */;								// SRAM chip select
-	wire SRAM_CLKEN;												// SRAM clock enable
-	wire SRAM_WR;													// SRAM write
-	wire [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT	/* synthesis keep */;	// SRAM read data
-	wire [SRAM_DAT_WIDTH-1:0]	SRAM_WR_DAT;						// SRAM write data
-	wire [SRAM_BYTEEN_WIDTH-1:0] SRAM_BYTEEN;						// SRAM byte enable
-	
-	/*
-	NMR_bstrm_pls_top
-	#(
-		
-		.IDLY_WIDTH			(IDLY_WIDTH), 		// the initial delay width
-		.PLS_WIDTH			(PLS_WIDTH), 		// the pulse width
-		.EDLY_WIDTH			(EDLY_WIDTH), 		// post-pulse delay width
-		.CNT_WIDTH			(CNT_WIDTH),		// the control signal width
-		.CMD_WIDTH			(CMD_WIDTH),		// the command counter width
-		.LOOP_WIDTH			(LOOP_WIDTH),		// loop width for the looping parameter
-		.SRAM_ADDR_WIDTH	(SRAM_ADDR_WIDTH), 	// the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
-		.SRAM_DAT_WIDTH		(SRAM_DAT_WIDTH), 	// the SRAM data width, find it in Platform Designer of the On-Chip Memory (RAM)
-		.SRAM_BYTEEN_WIDTH	(SRAM_BYTEEN_WIDTH) // the byte enable width, find it in Platform Designer of the On-Chip Memory (RAM)
-		
-	) bitstr_adv1
-	(
-		
-		.START		(bitstr_adv_start),
-		.DONE		(bitstr_adv_done),
-		
-		// SRAM access
-		.SRAM_ADDR		(SRAM_ADDR),	// SRAM address
-		.SRAM_CS		(SRAM_CS),		// SRAM chip select
-		.SRAM_CLKEN		(SRAM_CLKEN),	// SRAM clock enable
-		.SRAM_WR		(SRAM_WR),		// SRAM write
-		.SRAM_RD_DAT	(SRAM_RD_DAT),	// SRAM read data
-		.SRAM_WR_DAT	(SRAM_WR_DAT),	// SRAM write data
-		.SRAM_BYTEEN	(SRAM_BYTEEN),	// SRAM byte enable
-		
-		// bitstream data output
-		.OUT			(GPIO_1[0]),
-		
-		// control signals
-		.CLK			(CLOCK_50),
-		.RST			(bitstr_adv_rst)
-		
-	);
-	*/
-
-	NMR_bstrm_arb_top
-	#(
-		
-		.DATA_WIDTH			(DATA_WIDTH),		// the pulse width
-		.CNT_WIDTH			(CNT_WIDTH),		// the control signal width
-		.CMD_WIDTH			(CMD_WIDTH),		// the command counter width
-		.LOOP_WIDTH			(LOOP_WIDTH),		// loop width for the looping parameter
-		.SRAM_ADDR_WIDTH	(SRAM_ADDR_WIDTH),	// the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
-		.SRAM_DAT_WIDTH		(SRAM_DAT_WIDTH),	// the SRAM data width, find it in Platform Designer of the On-Chip Memory (RAM)
-		.SRAM_BYTEEN_WIDTH	(SRAM_BYTEEN_WIDTH) // the byte enable width, find it in Platform Designer of the On-Chip Memory (RAM)
-		
-	) DUT
-	(
-		
-		.START	(bitstr_adv_start),
-		.DONE	(bitstr_adv_done),
-		
-		// SRAM access
-		.SRAM_ADDR		(SRAM_ADDR),	// SRAM address
-		.SRAM_CS		(SRAM_CS),		// SRAM chip select
-		.SRAM_CLKEN		(SRAM_CLKEN),	// SRAM clock enable
-		.SRAM_WR		(SRAM_WR),		// SRAM write
-		.SRAM_RD_DAT	(SRAM_RD_DAT),	// SRAM read data
-		.SRAM_WR_DAT	(SRAM_WR_DAT),	// SRAM write data
-		.SRAM_BYTEEN	(SRAM_BYTEEN),	// SRAM byte enable
-		
-		// bitstream data .
-		.OUT	(GPIO_1[0]),
-		
-		// control signals
-		.CLK	(CLOCK_50),
-		.RST	(bitstr_adv_rst)
-		
-	);
-
-
-
-
-
-
-
-
-
-
-
 
 
 

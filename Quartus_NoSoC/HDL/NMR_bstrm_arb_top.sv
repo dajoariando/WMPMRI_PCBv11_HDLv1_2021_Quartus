@@ -23,11 +23,7 @@ module NMR_bstrm_arb_top
 	// SRAM access
 	output [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR,		// SRAM address
 	output SRAM_CS,								// SRAM chip select
-	output SRAM_CLKEN,							// SRAM clock enable
-	output SRAM_WR,								// SRAM write
 	input [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT,	// SRAM read data
-	output [SRAM_DAT_WIDTH-1:0]	SRAM_WR_DAT,	// SRAM write data
-	output [SRAM_BYTEEN_WIDTH-1:0] SRAM_BYTEEN,	// SRAM byte enable
 	
 	// bitstream data output
 	output OUT,
@@ -66,11 +62,7 @@ module NMR_bstrm_arb_top
 		// SRAM access
 		.SRAM_ADDR		(SRAM_ADDR),	// SRAM address
 		.SRAM_CS		(SRAM_CS),		// SRAM chip select
-		.SRAM_CLKEN		(SRAM_CLKEN),		// SRAM clock enable
-		.SRAM_WR		(SRAM_WR),			// SRAM write
 		.SRAM_RD_DAT	(SRAM_RD_DAT),		// SRAM read data
-		.SRAM_WR_DAT	(SRAM_WR_DAT),		// SRAM write data
-		.SRAM_BYTEEN	(SRAM_BYTEEN),		// SRAM byte enable
 		
 		// bitstream control data
 		.DPATH_START		(DPATH_START),
