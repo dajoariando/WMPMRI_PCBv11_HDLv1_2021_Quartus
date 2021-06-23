@@ -131,7 +131,8 @@ module NMR_bstrm_arb_dpath
 					
 					else if (buf_pattern_mode)
 					begin
-						OUT <= data[0];
+						// OUT <= data[0]; // for outputting LSB first
+						OUT <= data[DATA_WIDTH-1]; // for outputting MSB first
 						State <= S5;
 					end
 					
@@ -175,9 +176,13 @@ module NMR_bstrm_arb_dpath
 					
 					DPATH_BUF_RDY <= 1'b0;
 					
-					// shift out the data
-					OUT <= stream_reg[1]; // the first data (stream_reg[0]) is already output in S1 combinationally, so take the second data (stream_reg[1])
-					stream_reg <= {1'b0,stream_reg[DATA_WIDTH-1:1]}; // shift the stream register
+					// shift out the data (LSB first)
+					// OUT <= stream_reg[1]; // the first data (stream_reg[0]) is already output in S1 combinationally, so take the second data (stream_reg[1]).
+					// stream_reg <= {1'b0,stream_reg[DATA_WIDTH-1:1]}; // shift the stream register
+					
+					// shift out the data (MSB first)
+					OUT <= stream_reg[DATA_WIDTH-2]; // the first data (stream_reg[DATA_WIDTH-1]) is already output in S1 combinationally, so take the second data (stream_reg[DATA_WIDTH-2]).
+					stream_reg <= {stream_reg[DATA_WIDTH-2:0],1'b0}; // shift the stream register
 					
 					str_counter_reg <= str_counter_reg + 1'b1;
 					if (str_counter_reg[7] == 1'b1)
@@ -210,7 +215,8 @@ module NMR_bstrm_arb_dpath
 						
 					else if (buf_pattern_mode)
 					begin
-						OUT <= stream_reg[1];
+						// OUT <= stream_reg[1]; // LSB first method
+						OUT <= stream_reg[DATA_WIDTH-2]; // MSB first method
 					end
 					
 					State <= S2;
