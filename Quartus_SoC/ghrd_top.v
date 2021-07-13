@@ -188,6 +188,12 @@ module ghrd_top(
 	wire tx_h1_done /* synthesis keep */;
 	wire bitstr_adv_rst;
 	
+	// DAC control signals
+	wire rxdac_LDACn;
+	wire rxdac_CLRn;
+	wire rx_dac_MISO, rx_dac_MOSI, rx_dac_SCLK, rx_dac_SS_n;
+
+	
 	//=======================================================
 	//  Structural coding
 	//=======================================================
@@ -302,11 +308,11 @@ module ghrd_top(
 		.hps_0_f2h_warm_reset_req_reset_n      (~hps_warm_reset ),      //       hps_0_f2h_warm_reset_req.reset_n
 		
 		// Bitstream FIFO out
-		.bitstr_fifo_clk_out_clk               (sys_pll_clk0),         //            bitstr_fifo_clk_out.clk
-		.bitstr_fifo_reset_out_reset_n         (~bitstr_fifo_rst),         //          bitstr_fifo_reset_out.reset_n
-		.bitstr_fifo_out_valid                 (bitstr_fifo_valid),         //                bitstr_fifo_out.valid
-		.bitstr_fifo_out_data                  (bitstr_fifo_out),         //                               .data
-		.bitstr_fifo_out_ready                 (bitstr_ready),         //                               .ready
+		// .bitstr_fifo_clk_out_clk               (sys_pll_clk0),         //            bitstr_fifo_clk_out.clk
+		// .bitstr_fifo_reset_out_reset_n         (~bitstr_fifo_rst),         //          bitstr_fifo_reset_out.reset_n
+		// .bitstr_fifo_out_valid                 (bitstr_fifo_valid),         //                bitstr_fifo_out.valid
+		// .bitstr_fifo_out_data                  (bitstr_fifo_out),         //                               .data
+		// .bitstr_fifo_out_ready                 (bitstr_ready),         //                               .ready
 		
 		// System PLL
 		.sys_pll_locked_export                 (sys_pll_lock),			//                 sys_pll_locked.export
@@ -315,6 +321,8 @@ module ghrd_top(
 		
 		// control signals
 		.cnt_out_export                        ({
+			rxdac_CLRn,
+			rxdac_LDACn,
 			bitstr_adv_rst,
 			bitstr_adv_start,
 			sys_pll_rst,
@@ -355,11 +363,33 @@ module ghrd_top(
         .tx_dump_cntl_done                     (),                    //                               .done
         .tx_dump_cntl_out                      (GPIO_1[6]),                    //                              
 		
+		.tx_aux_cntl_start                     (bitstr_adv_start),                     //                    tx_aux_cntl.start
+        .tx_aux_cntl_done                      (),                      //                               .done
+        .tx_aux_cntl_out                       (GPIO_0[0]),                        //                               .out
+		
+		// AD5722 RxDAC
+		.rx_dac_MISO                           (rx_dac_MISO),                           //                         rx_dac.MISO
+        .rx_dac_MOSI                           (rx_dac_MOSI),                           //                               .MOSI
+        .rx_dac_SCLK                           (rx_dac_SCLK),                           //                               .SCLK
+        .rx_dac_SS_n                           (rx_dac_SS_n),                           //                               .SS_n
+        
+		.rx_inc_damp_cntl_start                (bitstr_adv_start),                //               rx_inc_damp_cntl.start
+        .rx_inc_damp_cntl_done                 (),                 //                               .done
+        .rx_inc_damp_cntl_out                  (GPIO_1[32]),                  //                               .out
+        .rx_in_short_cntl_start                (bitstr_adv_start),                //               rx_in_short_cntl.start
+        .rx_in_short_cntl_done                 (),                 //                               .done
+        .rx_in_short_cntl_out                  (GPIO_1[34])                   //                               .out
+    
     );
 
-
-
-
+	// AD5722R hardwired connections
+	assign GPIO_1[28] = rxdac_LDACn; // always activate LDACn
+	assign GPIO_1[27] = rxdac_CLRn; // always disactivate RSTn
+	assign GPIO_1[31] = rx_dac_SS_n;
+	assign GPIO_1[30] = rx_dac_SCLK;
+	assign GPIO_1[29] = rx_dac_MOSI;
+	assign rx_dac_MISO = GPIO_1[26];
+	
 
 
 

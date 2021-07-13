@@ -37,7 +37,7 @@
    {
       datum _sortIndex
       {
-         value = "17";
+         value = "18";
          type = "int";
       }
    }
@@ -80,6 +80,11 @@
    }
    element cnt_in.s1
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "288";
@@ -96,6 +101,11 @@
    }
    element cnt_out.s1
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "304";
@@ -256,7 +266,7 @@
    {
       datum _sortIndex
       {
-         value = "16";
+         value = "17";
          type = "int";
       }
    }
@@ -265,6 +275,54 @@
       datum baseAddress
       {
          value = "65536";
+         type = "String";
+      }
+   }
+   element rx_dac
+   {
+      datum _sortIndex
+      {
+         value = "16";
+         type = "int";
+      }
+   }
+   element rx_dac.spi_control_port
+   {
+      datum baseAddress
+      {
+         value = "256";
+         type = "String";
+      }
+   }
+   element rx_in_short
+   {
+      datum _sortIndex
+      {
+         value = "28";
+         type = "int";
+      }
+   }
+   element rx_in_short.s0
+   {
+      datum baseAddress
+      {
+         value = "32768";
+         type = "String";
+      }
+   }
+   element rx_inc_damp
+   {
+      datum _sortIndex
+      {
+         value = "27";
+         type = "int";
+      }
+   }
+   element rx_inc_damp.s0
+   {
+      datum baseAddress
+      {
+         value = "36864";
          type = "String";
       }
    }
@@ -294,6 +352,11 @@
    }
    element sys_pll_reconfig.mgmt_avalon_slave
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "0";
@@ -325,12 +388,17 @@
    {
       datum _sortIndex
       {
-         value = "22";
+         value = "23";
          type = "int";
       }
    }
    element tx_CHRG.s0
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "8192";
@@ -341,12 +409,17 @@
    {
       datum _sortIndex
       {
-         value = "23";
+         value = "24";
          type = "int";
       }
    }
    element tx_DAMP.s0
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "4096";
@@ -357,12 +430,17 @@
    {
       datum _sortIndex
       {
-         value = "24";
+         value = "25";
          type = "int";
       }
    }
    element tx_DUMP.s0
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "0";
@@ -373,12 +451,17 @@
    {
       datum _sortIndex
       {
-         value = "18";
+         value = "19";
          type = "int";
       }
    }
    element tx_H1.s0
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "24576";
@@ -389,12 +472,17 @@
    {
       datum _sortIndex
       {
-         value = "19";
+         value = "20";
          type = "int";
       }
    }
    element tx_H2.s0
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "20480";
@@ -405,12 +493,17 @@
    {
       datum _sortIndex
       {
-         value = "20";
+         value = "21";
          type = "int";
       }
    }
    element tx_L1.s0
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "16384";
@@ -421,15 +514,41 @@
    {
       datum _sortIndex
       {
-         value = "21";
+         value = "22";
          type = "int";
       }
    }
    element tx_L2.s0
    {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
       datum baseAddress
       {
          value = "12288";
+         type = "String";
+      }
+   }
+   element tx_aux
+   {
+      datum _sortIndex
+      {
+         value = "26";
+         type = "int";
+      }
+   }
+   element tx_aux.s0
+   {
+      datum _lockedAddress
+      {
+         value = "1";
+         type = "boolean";
+      }
+      datum baseAddress
+      {
+         value = "28672";
          type = "String";
       }
    }
@@ -454,21 +573,9 @@
  <parameter name="timeStamp" value="0" />
  <parameter name="useTestBenchNamingPattern" value="false" />
  <instanceScript></instanceScript>
- <interface
-   name="bitstr_fifo_clk_out"
-   internal="bitstr_fifo.clk_out"
-   type="clock"
-   dir="end" />
- <interface
-   name="bitstr_fifo_out"
-   internal="bitstr_fifo.out"
-   type="avalon_streaming"
-   dir="start" />
- <interface
-   name="bitstr_fifo_reset_out"
-   internal="bitstr_fifo.reset_out"
-   type="reset"
-   dir="end" />
+ <interface name="bitstr_fifo_clk_out" internal="bitstr_fifo.clk_out" />
+ <interface name="bitstr_fifo_out" internal="bitstr_fifo.out" />
+ <interface name="bitstr_fifo_reset_out" internal="bitstr_fifo.reset_out" />
  <interface
    name="bstream_rst"
    internal="bstream_rst.in_reset"
@@ -535,6 +642,17 @@
  <interface name="ram_tx_en_reset2" internal="ram_tx_en.reset2" />
  <interface name="ram_tx_en_s2" internal="ram_tx_en.s2" />
  <interface name="reset" internal="clk_0.clk_in_reset" type="reset" dir="end" />
+ <interface name="rx_dac" internal="rx_dac.external" type="conduit" dir="end" />
+ <interface
+   name="rx_in_short_cntl"
+   internal="rx_in_short.cntl"
+   type="conduit"
+   dir="end" />
+ <interface
+   name="rx_inc_damp_cntl"
+   internal="rx_inc_damp.cntl"
+   type="conduit"
+   dir="end" />
  <interface
    name="sys_pll_clk0"
    internal="sys_pll.outclk0"
@@ -546,6 +664,7 @@
    type="conduit"
    dir="end" />
  <interface name="sys_pll_reset" internal="sys_pll.reset" type="reset" dir="end" />
+ <interface name="tx_aux_cntl" internal="tx_aux.cntl" type="conduit" dir="end" />
  <interface name="tx_chrg_cntl" internal="tx_CHRG.cntl" type="conduit" dir="end" />
  <interface name="tx_damp_cntl" internal="tx_DAMP.cntl" type="conduit" dir="end" />
  <interface name="tx_dump_cntl" internal="tx_DUMP.cntl" type="conduit" dir="end" />
@@ -557,7 +676,7 @@
    name="bitstr_fifo"
    kind="altera_avalon_fifo"
    version="17.1"
-   enabled="1">
+   enabled="0">
   <parameter name="avalonMMAvalonMMDataWidth" value="32" />
   <parameter name="avalonMMAvalonSTDataWidth" value="32" />
   <parameter name="bitsPerSymbol" value="32" />
@@ -1314,6 +1433,42 @@
   <parameter name="useShallowMemBlocks" value="false" />
   <parameter name="writable" value="true" />
  </module>
+ <module name="rx_dac" kind="altera_avalon_spi" version="17.1" enabled="1">
+  <parameter name="avalonSpec" value="2.0" />
+  <parameter name="clockPhase" value="0" />
+  <parameter name="clockPolarity" value="1" />
+  <parameter name="dataWidth" value="24" />
+  <parameter name="disableAvalonFlowControl" value="false" />
+  <parameter name="inputClockRate" value="50000000" />
+  <parameter name="insertDelayBetweenSlaveSelectAndSClk" value="false" />
+  <parameter name="insertSync" value="false" />
+  <parameter name="lsbOrderedFirst" value="false" />
+  <parameter name="masterSPI" value="true" />
+  <parameter name="numberOfSlaves" value="1" />
+  <parameter name="syncRegDepth" value="2" />
+  <parameter name="targetClockRate" value="128000" />
+  <parameter name="targetSlaveSelectToSClkDelay" value="0.0" />
+ </module>
+ <module name="rx_in_short" kind="bstream" version="1.0" enabled="1">
+  <parameter name="CMD_WIDTH" value="8" />
+  <parameter name="CNT_WIDTH" value="32" />
+  <parameter name="DATA_WIDTH" value="120" />
+  <parameter name="LOOP_WIDTH" value="16" />
+  <parameter name="MM_WIDTH" value="32" />
+  <parameter name="SRAM_ADDR_WIDTH" value="8" />
+  <parameter name="SRAM_BYTEEN_WIDTH" value="16" />
+  <parameter name="SRAM_DAT_WIDTH" value="128" />
+ </module>
+ <module name="rx_inc_damp" kind="bstream" version="1.0" enabled="1">
+  <parameter name="CMD_WIDTH" value="8" />
+  <parameter name="CNT_WIDTH" value="32" />
+  <parameter name="DATA_WIDTH" value="120" />
+  <parameter name="LOOP_WIDTH" value="16" />
+  <parameter name="MM_WIDTH" value="32" />
+  <parameter name="SRAM_ADDR_WIDTH" value="8" />
+  <parameter name="SRAM_BYTEEN_WIDTH" value="16" />
+  <parameter name="SRAM_DAT_WIDTH" value="128" />
+ </module>
  <module name="sys_pll" kind="altera_pll" version="17.1" enabled="1">
   <parameter name="debug_print_output" value="false" />
   <parameter name="debug_use_rbc_taf_method" value="false" />
@@ -1604,6 +1759,16 @@
   <parameter name="SRAM_BYTEEN_WIDTH" value="16" />
   <parameter name="SRAM_DAT_WIDTH" value="128" />
  </module>
+ <module name="tx_aux" kind="bstream" version="1.0" enabled="1">
+  <parameter name="CMD_WIDTH" value="8" />
+  <parameter name="CNT_WIDTH" value="32" />
+  <parameter name="DATA_WIDTH" value="120" />
+  <parameter name="LOOP_WIDTH" value="16" />
+  <parameter name="MM_WIDTH" value="32" />
+  <parameter name="SRAM_ADDR_WIDTH" value="8" />
+  <parameter name="SRAM_BYTEEN_WIDTH" value="16" />
+  <parameter name="SRAM_DAT_WIDTH" value="128" />
+ </module>
  <connection
    kind="avalon"
    version="17.1"
@@ -1674,6 +1839,33 @@
    end="tx_DUMP.s0">
   <parameter name="arbitrationPriority" value="1" />
   <parameter name="baseAddress" value="0x0000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="hps_0.h2f_axi_master"
+   end="tx_aux.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x7000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="hps_0.h2f_axi_master"
+   end="rx_inc_damp.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x9000" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
+   start="hps_0.h2f_axi_master"
+   end="rx_in_short.s0">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x8000" />
   <parameter name="defaultConnection" value="false" />
  </connection>
  <connection
@@ -1778,6 +1970,15 @@
  <connection
    kind="avalon"
    version="17.1"
+   start="hps_0.h2f_lw_axi_master"
+   end="rx_dac.spi_control_port">
+  <parameter name="arbitrationPriority" value="1" />
+  <parameter name="baseAddress" value="0x0100" />
+  <parameter name="defaultConnection" value="false" />
+ </connection>
+ <connection
+   kind="avalon"
+   version="17.1"
    start="master_non_sec.master"
    end="jtag_uart.avalon_jtag_slave">
   <parameter name="arbitrationPriority" value="1" />
@@ -1861,6 +2062,7 @@
  <connection kind="clock" version="17.1" start="clk_0.clk" end="cnt_out.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="cnt_in.clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="bstream_rst.clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="rx_dac.clk" />
  <connection
    kind="clock"
    version="17.1"
@@ -1904,6 +2106,17 @@
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_CHRG.rd_clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_DAMP.rd_clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_DUMP.rd_clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_aux.rd_clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="rx_inc_damp.rd_clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="rx_in_short.rd_clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="sys_pll.refclk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_H1.wr_clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_H2.wr_clk" />
@@ -1912,6 +2125,17 @@
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_CHRG.wr_clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_DAMP.wr_clk" />
  <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_DUMP.wr_clk" />
+ <connection kind="clock" version="17.1" start="clk_0.clk" end="tx_aux.wr_clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="rx_inc_damp.wr_clk" />
+ <connection
+   kind="clock"
+   version="17.1"
+   start="clk_0.clk"
+   end="rx_in_short.wr_clk" />
  <connection
    kind="conduit"
    version="17.1"
@@ -1954,6 +2178,13 @@
    start="hps_0.f2h_irq0"
    end="dipsw_pio.irq">
   <parameter name="irqNumber" value="0" />
+ </connection>
+ <connection
+   kind="interrupt"
+   version="17.1"
+   start="hps_0.f2h_irq0"
+   end="rx_dac.irq">
+  <parameter name="irqNumber" value="3" />
  </connection>
  <connection
    kind="interrupt"
@@ -2030,6 +2261,11 @@
    kind="reset"
    version="17.1"
    start="clk_0.clk_reset"
+   end="rx_dac.reset" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="clk_0.clk_reset"
    end="onchip_memory2_0.reset1" />
  <connection
    kind="reset"
@@ -2081,6 +2317,21 @@
    version="17.1"
    start="bstream_rst.out_reset"
    end="tx_DAMP.rst" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="bstream_rst.out_reset"
+   end="tx_aux.rst" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="bstream_rst.out_reset"
+   end="rx_inc_damp.rst" />
+ <connection
+   kind="reset"
+   version="17.1"
+   start="bstream_rst.out_reset"
+   end="rx_in_short.rst" />
  <interconnectRequirement for="$system" name="qsys_mm.clockCrossingAdapter" value="HANDSHAKE" />
  <interconnectRequirement for="$system" name="qsys_mm.maxAdditionalLatency" value="1" />
 </system>
