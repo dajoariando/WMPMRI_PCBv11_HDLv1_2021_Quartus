@@ -187,6 +187,7 @@ module ghrd_top(
 	wire bitstr_adv_done /* synthesis keep */;
 	wire tx_h1_done /* synthesis keep */;
 	wire bitstr_adv_rst;
+	wire tx_h1, tx_h2, tx_l1, tx_l2, tx_chrg, tx_damp, tx_dump, tx_aux;
 	
 	// DAC control signals
 	wire rxdac_LDACn;
@@ -343,29 +344,29 @@ module ghrd_top(
 		.bstream_rst_reset                     (bitstr_adv_rst),                        //                      tx_h1_rst.reset
 		.tx_h1_cntl_start                      (bitstr_adv_start),                      //                     tx_h1_cntl.start
         .tx_h1_cntl_done                       (tx_h1_done),                       //                               .done
-        .tx_h1_cntl_out                        (GPIO_1[1]),                        //                               .out
+        .tx_h1_cntl_out                        (tx_h1),                        //                               .out
         .tx_h2_cntl_start                      (bitstr_adv_start),                    //                     tx_h2_cntl.start
         .tx_h2_cntl_done                       (),                    //                               .done
-        .tx_h2_cntl_out                        (GPIO_1[5]),                    //                               .out
+        .tx_h2_cntl_out                        (tx_h2),                    //                               .out
         .tx_l1_cntl_start                      (bitstr_adv_start),                    //                     tx_l1_cntl.start
         .tx_l1_cntl_done                       (),                    //                               .done
-        .tx_l1_cntl_out                        (GPIO_1[2]),                    //                               .out
+        .tx_l1_cntl_out                        (tx_l1),                    //                               .out
         .tx_l2_cntl_start                      (bitstr_adv_start),                    //                     tx_l2_cntl.start
         .tx_l2_cntl_done                       (),                    //                               .done
-        .tx_l2_cntl_out                        (GPIO_1[4]),                    //                               .out
+        .tx_l2_cntl_out                        (tx_l2),                    //                               .out
         .tx_chrg_cntl_start                    (bitstr_adv_start),                    //                   tx_chrg_cntl.start
         .tx_chrg_cntl_done                     (),                    //                               .done
-        .tx_chrg_cntl_out                      (GPIO_1[0]),                    //                               .out
+        .tx_chrg_cntl_out                      (tx_chrg),                    //                               .out
         .tx_damp_cntl_start                    (bitstr_adv_start),                    //                   tx_damp_cntl.start
         .tx_damp_cntl_done                     (),                    //                               .done
-        .tx_damp_cntl_out                      (GPIO_1[3]),                    //                               .out
+        .tx_damp_cntl_out                      (tx_damp),                    //                               .out
         .tx_dump_cntl_start                    (bitstr_adv_start),                    //                   tx_dump_cntl.start
         .tx_dump_cntl_done                     (),                    //                               .done
-        .tx_dump_cntl_out                      (GPIO_1[6]),                    //                              
+        .tx_dump_cntl_out                      (tx_dump),                    //                              
 		
 		.tx_aux_cntl_start                     (bitstr_adv_start),                     //                    tx_aux_cntl.start
         .tx_aux_cntl_done                      (),                      //                               .done
-        .tx_aux_cntl_out                       (GPIO_0[0]),                        //                               .out
+        .tx_aux_cntl_out                       (tx_aux),                        //                               .out
 		
 		// AD5722 RxDAC
 		.rx_dac_MISO                           (rx_dac_MISO),                           //                         rx_dac.MISO
@@ -381,6 +382,26 @@ module ghrd_top(
         .rx_in_short_cntl_out                  (GPIO_1[34])                   //                               .out
     
     );
+	
+	// bitstream output signals
+	assign GPIO_1[1] = tx_h1;
+	assign GPIO_1[5] = tx_h2;
+	assign GPIO_1[2] = tx_l1;
+	assign GPIO_1[4] = tx_l2;
+	assign GPIO_1[0] = tx_chrg;
+	assign GPIO_1[3] = tx_damp;
+	assign GPIO_1[6] = tx_dump;
+	assign GPIO_1[7] = tx_aux;
+	// copy the same thing to GPIO_0 for probing purposes
+	assign GPIO_0[1] = tx_h1;
+	assign GPIO_0[5] = tx_h2;
+	assign GPIO_0[2] = tx_l1;
+	assign GPIO_0[4] = tx_l2;
+	assign GPIO_0[0] = tx_chrg;
+	assign GPIO_0[3] = tx_damp;
+	assign GPIO_0[6] = tx_dump;
+	assign GPIO_0[7] = tx_aux;
+	
 
 	// AD5722R hardwired connections
 	assign GPIO_1[28] = rxdac_LDACn; // always activate LDACn
@@ -389,10 +410,6 @@ module ghrd_top(
 	assign GPIO_1[30] = rx_dac_SCLK;
 	assign GPIO_1[29] = rx_dac_MOSI;
 	assign rx_dac_MISO = GPIO_1[26];
-	
-
-
-
 
 
 	// Debounce logic to clean out glitches within 1ms
