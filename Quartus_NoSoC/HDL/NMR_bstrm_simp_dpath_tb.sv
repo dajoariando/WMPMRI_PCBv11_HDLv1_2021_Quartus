@@ -85,9 +85,10 @@ module NMR_bstrm_simp_dpath_tb ();
 		
 		#(clockticks*2)
 			START = 1;
+
+		#(clockticks*2)
+			START = 0;		
 		
-		@(posedge DONE);
-			START = 0;
 
 		
 	end
