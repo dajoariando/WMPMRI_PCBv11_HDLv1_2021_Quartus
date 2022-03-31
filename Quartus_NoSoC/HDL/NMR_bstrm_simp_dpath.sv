@@ -8,7 +8,7 @@
 module NMR_bstrm_simp_dpath
 # (
 
-	parameter DATA_WIDTH = 32,	// the data width
+	parameter DATA_WIDTH = 24,	// the data width
 	parameter MUX_WIDTH = 16		// the mux width
 
 )
@@ -67,8 +67,9 @@ module NMR_bstrm_simp_dpath
 			State <= S0;
 			OUTBUF <= 1'b0;
 			DPATH_RDY <= 1'b0;
-			DONE <= 1'b1;
+			DONE <= 1'b0;
 			PLS_POL_REG <= 1'b0;
+			mux_sel_reg <= 4'd0;
 		end
 		
 		else
@@ -79,21 +80,22 @@ module NMR_bstrm_simp_dpath
 				S0: // load the counter register
 				begin
 					
+					DONE <= 1'b0;
 					DPATH_RDY <= 1'b1;
-					DONE <= 1'b1;
 					PLS_POL_REG <= PLS_POL;
-					cnt_reg <= {{1'b1},{DATA_WIDTH{1'b0}}} - {{1'b0},{data}} + 1'b1;
+					cnt_reg <= {{1'b1},{DATA_WIDTH{1'b0}}} - {{1'b0},{data}} + 4'd8;
 					mux_sel_reg <= mux_sel;
 					
 					if (START == 1'b1)
+					begin
 						State <= S1;
+					end
 					
 				end
 				
 				S1: // generate the output
 				begin
 					
-					DONE <= 1'b0;
 					DPATH_RDY <= 1'b0;
 					OUTBUF <= PLS_POL_REG;
 					cnt_reg <= cnt_reg + 1'b1;
@@ -103,13 +105,21 @@ module NMR_bstrm_simp_dpath
 				
 				end
 				
-				S2: // parse commands
+				S2: // added numbers to cnt_reg to account for delay
+				begin
+				
+					cnt_reg <= {{1'b1},{DATA_WIDTH{1'b0}}} - 4'd1;
+					DONE <= 1'b1;
+					State <= S3;
+				
+				end
+				
+				S3: // 
 				begin
 					
-					OUTBUF <= 1'b0;
-					DONE <= 1'b1;
+					cnt_reg <= cnt_reg + 1'b1;
 					
-					if (START == 1'b0)
+					if (cnt_reg[DATA_WIDTH] == 1'b1)
 						State <= S0;
 
 				end

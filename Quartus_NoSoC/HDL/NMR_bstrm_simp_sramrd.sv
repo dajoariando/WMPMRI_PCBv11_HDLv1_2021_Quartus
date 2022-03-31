@@ -7,7 +7,7 @@
 module NMR_bstrm_simp_sramrd_cnt 
 #(
 	parameter SRAM_ADDR_WIDTH = 8,		// the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
-	parameter SRAM_DAT_WIDTH = 32,		// the SRAM data width, find it in Platform Designer of the On-Chip Memory (RAM)
+	parameter SRAM_DAT_WIDTH = 32		// the SRAM data width, find it in Platform Designer of the On-Chip Memory (RAM)
 	// parameter SRAM_BYTEEN_WIDTH = 16	// the byte enable width, find it in Platform Designer of the On-Chip Memory (RAM)
 )
 (
@@ -17,10 +17,10 @@ module NMR_bstrm_simp_sramrd_cnt
 	output reg DATA_RDY,
 	
 	// SRAM access
-	input [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR,			// SRAM address 
+	// input [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR,			// SRAM address 
 	output reg SRAM_CS,								// SRAM chip select
 	input [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT,		// SRAM read data
-	output [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR_PHY,		// SRAM address physical conns
+	// output [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR_PHY,		// SRAM address physical conns
 	
 	// bitstream control data
 	output reg [SRAM_DAT_WIDTH-1:0] data_reg,
@@ -42,7 +42,7 @@ module NMR_bstrm_simp_sramrd_cnt
 		State 		<= S0;
 		SRAM_CS		<= 1'b0;
 		SYS_RDY		<= 1'b0;
-		data_reg 	<= {DATA_WIDTH{1'b0}};
+		data_reg 	<= {SRAM_DAT_WIDTH{1'b0}};
 	end
 
 	
@@ -55,7 +55,7 @@ module NMR_bstrm_simp_sramrd_cnt
 			SRAM_CS <= 1'b0;
 			SYS_RDY <= 1'b0;
 			DATA_RDY <= 1'b0;
-			data_reg <= {DATA_WIDTH{1'b0}};
+			data_reg <= {SRAM_DAT_WIDTH{1'b0}};
 		end
 		
 		else
@@ -63,12 +63,11 @@ module NMR_bstrm_simp_sramrd_cnt
 		
 			case (State)
 			
-				S0:
+				S0: // enable the CS
 				begin
 					
 					SYS_RDY <= 1'b1;
 					DATA_RDY <= 1'b0;
-					SRAM_ADDR_PHY <= SRAM_ADDR;
 					SRAM_CS <= 1'b1;
 					
 					if (START == 1'b1)
@@ -76,7 +75,7 @@ module NMR_bstrm_simp_sramrd_cnt
 					
 				end		
 				
-				S1: // enable the CS
+				S1: // disable the CS
 				begin
 					
 					SYS_RDY <= 1'b0;					
@@ -84,6 +83,8 @@ module NMR_bstrm_simp_sramrd_cnt
 					State <= S2;
 					
 				end
+				
+				
 				
 				S2: // delay one clock cycle to process data
 				begin
