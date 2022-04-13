@@ -5,26 +5,12 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	NMR_bstrm_pls_cnt_tb
 
-} {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_dpath.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_dpath.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module NMR_bstrm_simp_dpath
-
-Top level modules:
-	NMR_bstrm_simp_dpath
-
 } {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_sramrd.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_sramrd.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module NMR_bstrm_simp_sramrd_cnt
 
 Top level modules:
 	NMR_bstrm_simp_sramrd_cnt
-
-} {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_cnt_tb.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_cnt_tb.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module NMR_bstrm_simp_cnt_tb
-
-Top level modules:
-	NMR_bstrm_simp_cnt_tb
 
 } {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_arb_dpath_tb.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_arb_dpath_tb.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -39,13 +25,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 
 Top level modules:
 	NMR_bstrm_pls_cnt
-
-} {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_cnt.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_cnt.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module NMR_bstrm_simp_cnt
-
-Top level modules:
-	NMR_bstrm_simp_cnt
 
 } {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_arb_dpath.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_arb_dpath.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -89,19 +68,19 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 Top level modules:
 	NMR_bstrm_arb_cnt
 
-} {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_top.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_top.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module NMR_bstrm_pls_top
-
-Top level modules:
-	NMR_bstrm_pls_top
-
 } {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_fifo.v {1 {vlog -work work -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_fifo.v
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
 -- Compiling module NMR_bstrm_fifo
 
 Top level modules:
 	NMR_bstrm_fifo
+
+} {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_top.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_top.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
+-- Compiling module NMR_bstrm_pls_top
+
+Top level modules:
+	NMR_bstrm_pls_top
 
 } {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_dpath_tb.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_dpath_tb.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
@@ -116,13 +95,6 @@ Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  
 
 Top level modules:
 	NMR_bstrm_arb_top_tb
-
-} {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_dpath_tb.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_simp_dpath_tb.sv
-Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016
--- Compiling module NMR_bstrm_simp_dpath_tb
-
-Top level modules:
-	NMR_bstrm_simp_dpath_tb
 
 } {} {}} D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_dpath.sv {1 {vlog -work work -sv -stats=none D:/WMPMRI_PCBv11_HDLv1_2021_Quartus/Quartus_NoSoC/HDL/NMR_bstrm_pls_dpath.sv
 Model Technology ModelSim - Intel FPGA Edition vlog 10.5b Compiler 2016.10 Oct  5 2016

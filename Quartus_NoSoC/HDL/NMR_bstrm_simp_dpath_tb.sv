@@ -19,7 +19,7 @@ module NMR_bstrm_simp_dpath_tb ();
 	// bitstream signals
 	reg START;
 	wire DPATH_RDY;
-	wire DONE;
+	// wire DONE;
 	
 	// bitstream data input
 	reg [DATA_WIDTH-1:0] data;	// the data / length of the pulse
@@ -49,7 +49,7 @@ module NMR_bstrm_simp_dpath_tb ();
 		// bitstream signals
 		.START (START),
 		.DPATH_RDY (DPATH_RDY),
-		.DONE (DONE),
+		// .DONE (DONE),
 		
 		// bitstream data input
 		.data (data),	// the data / length of the pulse
@@ -78,18 +78,71 @@ module NMR_bstrm_simp_dpath_tb ();
 		
 		#(clockticks*2)
 			RST = 0;
+		
+		#(clockticks*10)
+			START = 1;
+			data = 4;
+			mux_sel = 0;
+			mux_in = 0;
+			PLS_POL = 1;
+
+		#(clockticks*2)
+			START = 0;
+		
+		#(clockticks*10);
+			START = 1;
+			data = 5;
+			mux_sel = 0;
+			mux_in = 0;
+			PLS_POL = 0;
+
+		#(clockticks*2)
+			START = 0;
+		
+				
+		wait(DPATH_RDY);
+		#(clockticks*2);
+			START = 1;
 			data = 5;
 			mux_sel = 0;
 			mux_in = 0;
 			PLS_POL = 1;
 		
 		#(clockticks*2)
-			START = 1;
-
-		#(clockticks*2)
-			START = 0;		
+			START = 0;
 		
-
+		wait(DPATH_RDY);
+		#(clockticks*2);
+			START = 1;
+			data = 6;
+			mux_sel = 0;
+			mux_in = 0;
+			PLS_POL = 0;
+		
+		#(clockticks*2)
+			START = 0;
+		
+		wait(DPATH_RDY);
+		#(clockticks*2);
+			START = 1;
+			data = 6;
+			mux_sel = 0;
+			mux_in = 0;
+			PLS_POL = 1;
+			
+		#(clockticks*2)
+			START = 0;
+			
+		wait(DPATH_RDY);
+		#(clockticks*2);
+			START = 1;
+			data = 6;
+			mux_sel = 0;
+			mux_in = 0;
+			PLS_POL = 0;
+		
+		#(clockticks*2)
+			START = 0;
 		
 	end
 

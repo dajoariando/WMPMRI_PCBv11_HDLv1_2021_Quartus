@@ -1,7 +1,7 @@
 // author: David Ariando
 // date: 30th March 2021
 // operation details:
-// 
+// // when the DPATH_RDY one clock cycle signal is asserted, the controller needs to be ready, otherwise the signal will be lost. This sets the limit for how many clock cycles are the minimum pulse length.
 
 module NMR_bstrm_simp_cnt 
 #(
@@ -20,7 +20,7 @@ module NMR_bstrm_simp_cnt
 	
 	// SRAM access
 	output reg [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR,	// SRAM address
-	output reg SRAM_CS,							// SRAM chip select
+	// output reg SRAM_CS,							// SRAM chip select
 	input [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT,	// SRAM read data
 	
 	// control signals
@@ -29,25 +29,25 @@ module NMR_bstrm_simp_cnt
 );
 	
 	// bitstream signals
-	reg SRAM_START;
-	wire SRAM_SYS_RDY;
-	wire SRAM_DATA_RDY;
+	// reg SRAM_START;
+	// wire SRAM_SYS_RDY;
+	// wire SRAM_DATA_RDY;
 
 	// bitstream control data
 	wire [SRAM_DAT_WIDTH-1:0] SRAM_data_reg;
 	
 	// datapath signals
-	reg DPATH_START;
-	wire DPATH_RDY;
+	reg DPATH_START; // one clock cycle signal for datapath start
+	wire DPATH_RDY; // when the DPATH_RDY one clock cycle signal is asserted, the controller needs to be ready, otherwise the signal will be lost.
 	wire DPATH_DONE;
 	
 	
-	reg pls_pol_reg;	// pulse polarity register
+	reg pls_pol_reg, pls_pol_reg_reg;	// pulse polarity register
 	reg loop_sta_reg;	// the loop start signal
 	reg loop_sto_reg;	// the loop stop signal
 	reg seq_end_reg;	// end sequence signal
-	reg [3:0] mux_sel; // mux selector register
-	reg [SRAM_DAT_WIDTH-8:0] dataval_reg; // data value read from the SRAM
+	reg [3:0] mux_sel_reg, mux_sel_reg_reg; // mux selector register
+	reg [SRAM_DAT_WIDTH-8:0] dataval_reg, dataval_reg_reg; // data value read from the SRAM
 	
 	reg [CMD_WIDTH-1:0] cmd_ctr; // the command counter
 	reg [LOOP_WIDTH-1:0] loop_ctr; // the loop counter
@@ -71,15 +71,19 @@ module NMR_bstrm_simp_cnt
 
 	initial begin
 		State <= S0;
-		SRAM_CS <= 1'b0;
+		// SRAM_CS <= 1'b0;
 		dataval_reg <= {DATA_WIDTH{1'b0}};
 		SRAM_ADDR <= {SRAM_ADDR_WIDTH{1'b0}};
 		DONE <= 1'b0;
+		
+		loop_ctr <= {(LOOP_WIDTH){1'b0}};
 		
 		pls_pol_reg		<= 1'b0;
 		seq_end_reg		<= 1'b0;
 		loop_sta_reg    <= 1'b0;
 		loop_sto_reg	<= 1'b0;
+		
+		loop_sta_addr <= {(CMD_WIDTH){1'b0}};
 		
 	end
 
@@ -91,17 +95,24 @@ module NMR_bstrm_simp_cnt
 		begin
 			State <= S0;
 			DPATH_START <= 1'b0;
-			SRAM_CS <= 1'b0;
+			// SRAM_CS <= 1'b0;
 			dataval_reg <= {DATA_WIDTH{1'b0}};
 			SRAM_ADDR <= {SRAM_ADDR_WIDTH{1'b0}};
 			DONE <= 1'b0;
 			
 			cmd_ctr <= {CMD_WIDTH{1'b0}};
+			loop_ctr <= {(LOOP_WIDTH){1'b0}};
 			
 			pls_pol_reg		<= 1'b0;
 			seq_end_reg		<= 1'b0;
 			loop_sta_reg    <= 1'b0;
 			loop_sto_reg	<= 1'b0;
+			mux_sel_reg 	<= 4'd0;
+			
+			// default value for the first bitstream output
+			mux_sel_reg_reg <= 4'd0;
+			dataval_reg_reg <= 10; // set to a small number of value to account for State 0 in the NMR_bstrm_simp_dpath.sv.
+			pls_pol_reg_reg <= 1'b0;
 			
 		end
 		
@@ -124,9 +135,13 @@ module NMR_bstrm_simp_cnt
 				S1: // check if the SRAM system is ready
 				begin
 					
+					DPATH_START <= 1'b1; // kickstart the bitstream
+					
 					DONE <= 1'b0;
-					if (SRAM_SYS_RDY == 1'b1)
-						State <= S2;
+					
+					// if (SRAM_SYS_RDY == 1'b1)
+					
+					State <= S2;
 					
 				end
 				
@@ -134,22 +149,24 @@ module NMR_bstrm_simp_cnt
 				begin
 				
 					SRAM_ADDR <= cmd_ctr;
-					SRAM_START <= 1'b1;
+					// SRAM_START <= 1'b1;
 					
-					DPATH_START <= 1'b0;
+					DPATH_START <= 1'b0; // disable the bitstream
 					
 					State <= S3;
-					
 					
 				end
 				
 				S3: // start reading SRAM from incremental address
 				begin
 					
-					SRAM_START <= 1'b0;
+					// SRAM_START <= 1'b0;
 					
-					if (SRAM_DATA_RDY == 1'b1)
-						State <= S4;
+					SRAM_data_reg <= SRAM_RD_DAT;
+					
+					// if (SRAM_DATA_RDY == 1'b1)
+					
+					State <= S4;
 					
 				end
 				
@@ -160,7 +177,7 @@ module NMR_bstrm_simp_cnt
 					seq_end_reg		<= SRAM_data_reg[SRAM_DAT_WIDTH-2];
 					loop_sta_reg    <= SRAM_data_reg[SRAM_DAT_WIDTH-3];
 					loop_sto_reg	<= SRAM_data_reg[SRAM_DAT_WIDTH-4];
-					mux_sel			<= SRAM_data_reg[SRAM_DAT_WIDTH-5:SRAM_DAT_WIDTH-8];
+					mux_sel_reg		<= SRAM_data_reg[SRAM_DAT_WIDTH-5:SRAM_DAT_WIDTH-8];
 					dataval_reg		<= SRAM_data_reg[SRAM_DAT_WIDTH-9:0];
 					
 					State <= S5;
@@ -168,51 +185,60 @@ module NMR_bstrm_simp_cnt
 				end
 				
 				
-				S5: // 
+				S5: // could be merged to S4 to reduce one clock cycle
 				begin
 				
 					if (seq_end_reg == 1'b1)
 						State <= S0;
 					
-					else if (loop_sta_reg == 1'b1)
+					else if (loop_sta_reg == 1'b1 && loop_ctr == {(LOOP_WIDTH){1'b0}} )
 						State <= S6;
 						
 					else if (DPATH_RDY == 1'b1)
+					begin	
+						DPATH_START <= 1'b1; // assert DPATH_START for one clock cycle
+						mux_sel_reg_reg <= mux_sel_reg;
+						dataval_reg_reg <= dataval_reg;
+						pls_pol_reg_reg <= pls_pol_reg;
+						
 						State <= S7;
+					end
 
 				end
 				
-				S6: // 
+				S6: // loop start bit is enabled
 				begin
 				
-					loop_ctr <= dataval_reg;
-					loop_sta_addr <= cmd_ctr;
+					loop_ctr <= dataval_reg - 1'b1;
+					loop_sta_addr <= cmd_ctr + 1'b1; // set the loop start address to the current address + 1
 					cmd_ctr <= cmd_ctr + 1'b1;
 					State <= S2;
-						
 				
 				end
 				
-				S7: // process loop parameter due to start loop
+				S7: // process normal output
 				begin
 					
-					DPATH_START <= 1'b1; // start streaming pulse output
+					DPATH_START <= 1'b0;
 					
-					if (loop_sto_reg == 1'b1)
+					if (loop_sto_reg == 1'b1 && loop_ctr > 0)
+					begin
+						loop_ctr <= loop_ctr - 1'b1;
 						cmd_ctr <= loop_sta_addr;
-					else 
+					end
+					else
+					begin					
 						cmd_ctr <= cmd_ctr + 1'b1;
+					end
 					
 					State <= S2;
 					
 				end
 				
-				S8: // process normal output
+				S8: // 
 				begin
 					
-					// DPATH_START <= 1'b0;
-					// if (DPATH_DONE == 1'b1)
-						// State <= S2;
+
 					
 				end
 				
@@ -248,7 +274,7 @@ module NMR_bstrm_simp_cnt
 		
 	end
 
-
+/*
 NMR_bstrm_simp_sramrd_cnt 
 #(
 	.SRAM_ADDR_WIDTH (SRAM_ADDR_WIDTH),		// the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
@@ -277,7 +303,7 @@ sram1
 	.CLK (CLK),
 	.RST (RST)
 );
-
+*/
 
 
 
@@ -297,15 +323,14 @@ NMR_bstrm_simp_dpath_1
 	// bitstream signals
 	.START (DPATH_START),
 	.DPATH_RDY (DPATH_RDY),
-	.DONE (DPATH_DONE),
 	
 	// bitstream data input
-	.data (dataval_reg),	// the data / length of the pulse
-	.PLS_POL (pls_pol_reg),					// the polarity of the pulse, either high or low
+	.data (dataval_reg_reg),	// the data / length of the pulse
+	.PLS_POL (pls_pol_reg_reg),					// the polarity of the pulse, either high or low
 	
 	// selector
-	.mux_sel (mux_sel),					// mux selector
-	.mux_in ({(MUX_WIDTH-1){1'b0}}),	// mux in.
+	.mux_sel (mux_sel_reg_reg),					// mux selector
+	.mux_in ({(MUX_WIDTH-1){1'b0}}),	// mux in
 	
 	// bitstream data output
 	.OUT (OUT),

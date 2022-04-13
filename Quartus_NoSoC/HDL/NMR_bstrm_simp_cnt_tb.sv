@@ -75,29 +75,90 @@ module NMR_bstrm_simp_cnt_tb ();
 		#(clockticks*10) START = 1;
 		#(clockticks*2) START = 0;
 		
-		//pls_pol_reg 
-		//seq_end_reg	
-		//loop_sta_reg
-		//loop_sto_reg
-		//mux_sel		
+		// pls_pol_reg 
+		// seq_end_reg	
+		// loop_sta_reg
+		// loop_sto_reg
+		// mux_sel
+		// length of pulse
 		
 		// program the repetition number
-		wait(SRAM_CS);
+		wait(SRAM_CS); // #0
 		#(clockticks*2)
-			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd20}};
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd15}}; //pls_pol_reg  //seq_end_reg	 //loop_sta_reg //loop_sto_reg //mux_sel // length of pulse
 		wait(!SRAM_CS);
 		
-		wait(SRAM_CS);
+		wait(SRAM_CS); // #1
 		#(clockticks*2)
-			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b0},{4{1'b0}},{24'd20}};
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b0},{4{1'b0}},{24'd8}};
 		wait(!SRAM_CS);
 		
-		wait(SRAM_CS);
+		wait(SRAM_CS); // #2
 		#(clockticks*2)
-			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd20}};
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd16}};
 		wait(!SRAM_CS);
 		
-		wait(SRAM_CS);
+		wait(SRAM_CS); // #3
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b0},{4{1'b0}},{24'd8}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #4
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b1,1'b0},{4{1'b0}},{24'd5}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #5
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #6
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #5
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #6
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #5
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #6
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #5
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #6
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #5
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #6
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
+		wait(!SRAM_CS);
+		
+		wait(SRAM_CS); // #7
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b1,1'b0,1'b0},{4{1'b0}},{24'h10}};
 		wait(!SRAM_CS);
