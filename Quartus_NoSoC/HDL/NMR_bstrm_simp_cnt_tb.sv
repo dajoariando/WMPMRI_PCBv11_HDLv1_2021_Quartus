@@ -27,8 +27,10 @@ module NMR_bstrm_simp_cnt_tb ();
 	
 	// SRAM access
 	wire [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR;	// SRAM address
-	wire SRAM_CS;							// SRAM chip select
 	reg [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT;	// SRAM read data
+	
+	// simulation aid
+	wire sim_changed_sram_addr; // a register to mark changes in SRAM_ADDR to aid simulation
 	
 	reg CLK;
 	reg RST;
@@ -52,8 +54,10 @@ module NMR_bstrm_simp_cnt_tb ();
 		
 		// SRAM access
 		.SRAM_ADDR (SRAM_ADDR),	// SRAM address
-		.SRAM_CS (SRAM_CS),							// SRAM chip select
 		.SRAM_RD_DAT (SRAM_RD_DAT),	// SRAM read data
+		
+		// simulation aid
+		.sim_changed_sram_addr (sim_changed_sram_addr), // a register to mark changes in SRAM_ADDR to aid simulation
 		
 		// control signals
 		.CLK (CLK),
@@ -68,7 +72,8 @@ module NMR_bstrm_simp_cnt_tb ();
 		START = 0;
 		RST = 1;
 		CLK = 1;
-		SRAM_RD_DAT <= 0;
+		
+		SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd4}}; //pls_pol_reg  //seq_end_reg	 //loop_sta_reg //loop_sto_reg //mux_sel // length of pulse
 		
 		#(clockticks*2) RST = 0;
 		
@@ -82,86 +87,82 @@ module NMR_bstrm_simp_cnt_tb ();
 		// mux_sel
 		// length of pulse
 		
-		// program the repetition number
-		wait(SRAM_CS); // #0
-		#(clockticks*2)
-			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd15}}; //pls_pol_reg  //seq_end_reg	 //loop_sta_reg //loop_sto_reg //mux_sel // length of pulse
-		wait(!SRAM_CS);
 		
-		wait(SRAM_CS); // #1
-		#(clockticks*2)
-			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b0},{4{1'b0}},{24'd8}};
-		wait(!SRAM_CS);
 		
-		wait(SRAM_CS); // #2
+		wait(sim_changed_sram_addr); // #1 , remember that address #0 is the one set at the beginning and is always at address #0 after RESET or INITIAL
 		#(clockticks*2)
-			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd16}};
-		wait(!SRAM_CS);
+			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b0},{4{1'b0}},{24'd4}};
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #3
+		wait(sim_changed_sram_addr); // #2
+		#(clockticks*2)
+			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd7}};
+		wait(!sim_changed_sram_addr);
+		
+		wait(sim_changed_sram_addr); // #3
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b0},{4{1'b0}},{24'd8}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #4
+		wait(sim_changed_sram_addr); // #4
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b0,1'b1,1'b0},{4{1'b0}},{24'd5}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #5
+		wait(sim_changed_sram_addr); // #5
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #6
+		wait(sim_changed_sram_addr); // #6
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #5
+		wait(sim_changed_sram_addr); // #5
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #6
+		wait(sim_changed_sram_addr); // #6
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #5
+		wait(sim_changed_sram_addr); // #5
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #6
+		wait(sim_changed_sram_addr); // #6
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #5
+		wait(sim_changed_sram_addr); // #5
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #6
+		wait(sim_changed_sram_addr); // #6
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #5
+		wait(sim_changed_sram_addr); // #5
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b1,1'b0,1'b0,1'b0},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #6
+		wait(sim_changed_sram_addr); // #6
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b0,1'b0,1'b1},{4{1'b0}},{24'd9}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
-		wait(SRAM_CS); // #7
+		wait(sim_changed_sram_addr); // #7
 		#(clockticks*2)
 			SRAM_RD_DAT <= {{1'b0,1'b1,1'b0,1'b0},{4{1'b0}},{24'h10}};
-		wait(!SRAM_CS);
+		wait(!sim_changed_sram_addr);
 		
 	end
 

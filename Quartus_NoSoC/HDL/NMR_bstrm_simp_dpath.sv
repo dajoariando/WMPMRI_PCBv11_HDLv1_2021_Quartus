@@ -11,6 +11,8 @@
 // the first state, S0, is special state where the START is captured and DPATH_RDY is always asserted. To avoid problems where controller sees multiple cycles of DPATH_RDY, it is better to use blanking pulse (output 0) for the first in the bitstream sequence, in order to make sure that the controller.
 // Or, make sure that there is at least 2 clock cycles delay from when the controller expects DPATH_RDY to be asserted again. This is generally not a problem because if reading from the SRAM, it would take at least 2 clock cycles, and the FSM will take 5-6 clock cycles in order to expect for DPATH_RDY signal.
 // The absolute minimum clock cycles of pulse is 3, but take into account the delay of the controller! If the controller misses to catch the DPATH_RDY that's only one clock cycle, the controller FSM will freeze when waiting for DPATH_RDY that is already passed. So the minimum clock cycles is actually limited by the controller.
+// cnt_reg has to be initialized at first (and after reset) to count for 50 clock cycles, in order for the controller to have enough time to create another START pulse to really start the sequence. At first, it will count for this dummy 50 clock cycles blanking period.
+
 
 `timescale 1ps / 1ps
 
@@ -66,6 +68,7 @@ module NMR_bstrm_simp_dpath
 		State <= S2;
 		OUTBUF <= 1'b0;
 		// DONE <= 1'b1;
+		cnt_reg <= {{1'b1},{DATA_WIDTH{1'b0}}} - 50; // add necessary delay of n clock cycles to account for controller FSM delay
 		
 	end
 	
@@ -81,7 +84,7 @@ module NMR_bstrm_simp_dpath
 			mux_sel_reg <= 4'd0;
 			start_reg <= 1'b1; // assert the initial start signal
 			
-			cnt_reg <= {{1'b1},{DATA_WIDTH{1'b0}}} - 20; // add necessary delay of 100 clock cycles to account for controller FSM delay
+			cnt_reg <= {{1'b1},{DATA_WIDTH{1'b0}}} - 50; // add necessary delay of n clock cycles to account for controller FSM delay
 
 		end
 		
