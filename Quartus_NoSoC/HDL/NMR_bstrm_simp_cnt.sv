@@ -20,7 +20,6 @@ module NMR_bstrm_simp_cnt
 	
 	// SRAM access
 	output reg [SRAM_ADDR_WIDTH-1:0] SRAM_ADDR,	// SRAM address
-	// output reg SRAM_CS,							// SRAM chip select
 	input [SRAM_DAT_WIDTH-1:0]	SRAM_RD_DAT,	// SRAM read data
 	
 	// control signals
@@ -28,11 +27,6 @@ module NMR_bstrm_simp_cnt
 	input RST
 );
 	
-	// bitstream signals
-	// reg SRAM_START;
-	// wire SRAM_SYS_RDY;
-	// wire SRAM_DATA_RDY;
-
 	// bitstream control data
 	wire [SRAM_DAT_WIDTH-1:0] SRAM_data_reg;
 	
@@ -95,7 +89,6 @@ module NMR_bstrm_simp_cnt
 		begin
 			State <= S0;
 			DPATH_START <= 1'b0;
-			// SRAM_CS <= 1'b0;
 			dataval_reg <= {DATA_WIDTH{1'b0}};
 			SRAM_ADDR <= {SRAM_ADDR_WIDTH{1'b0}};
 			DONE <= 1'b0;
@@ -138,9 +131,7 @@ module NMR_bstrm_simp_cnt
 					DPATH_START <= 1'b1; // kickstart the bitstream
 					
 					DONE <= 1'b0;
-					
-					// if (SRAM_SYS_RDY == 1'b1)
-					
+										
 					State <= S2;
 					
 				end
@@ -149,7 +140,6 @@ module NMR_bstrm_simp_cnt
 				begin
 				
 					SRAM_ADDR <= cmd_ctr;
-					// SRAM_START <= 1'b1;
 					
 					DPATH_START <= 1'b0; // disable the bitstream
 					
@@ -159,13 +149,9 @@ module NMR_bstrm_simp_cnt
 				
 				S3: // start reading SRAM from incremental address
 				begin
-					
-					// SRAM_START <= 1'b0;
-					
+										
 					SRAM_data_reg <= SRAM_RD_DAT;
-					
-					// if (SRAM_DATA_RDY == 1'b1)
-					
+										
 					State <= S4;
 					
 				end
@@ -273,41 +259,6 @@ module NMR_bstrm_simp_cnt
 		end
 		
 	end
-
-/*
-NMR_bstrm_simp_sramrd_cnt 
-#(
-	.SRAM_ADDR_WIDTH (SRAM_ADDR_WIDTH),		// the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
-	.SRAM_DAT_WIDTH (SRAM_DAT_WIDTH)		// the SRAM data width, find it in Platform Designer of the On-Chip Memory (RAM)
-	// parameter SRAM_BYTEEN_WIDTH = 16	// the byte enable width, find it in Platform Designer of the On-Chip Memory (RAM)
-)
-
-sram1
-
-(
-	// bitstream signals
-	.START		(SRAM_START),
-	.SYS_RDY	(SRAM_SYS_RDY),
-	.DATA_RDY	(SRAM_DATA_RDY),
-	
-	// SRAM access
-	// .SRAM_ADDR		(SRAM_ADDR),			// SRAM address 
-	.SRAM_CS		(SRAM_CS),								// SRAM chip select
-	.SRAM_RD_DAT	(SRAM_RD_DAT),		// SRAM read data
-	// .SRAM_ADDR_PHY	(SRAM_ADDR_PHY),		// SRAM address physical conns
-	
-	// bitstream control data
-	.data_reg (SRAM_data_reg),
-	
-	// control signals
-	.CLK (CLK),
-	.RST (RST)
-);
-*/
-
-
-
-
 
 
 NMR_bstrm_simp_dpath
