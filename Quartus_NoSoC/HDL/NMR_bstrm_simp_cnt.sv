@@ -9,7 +9,7 @@ module NMR_bstrm_simp_cnt
 #(
 	parameter CMD_WIDTH = 8,		// the command counter width
 	parameter LOOP_WIDTH = 24,		// loop width for the looping parameter
-	parameter SRAM_ADDR_WIDTH = 8, // the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
+	parameter SRAM_ADDR_WIDTH = 7, // the SRAM address width, find it in Platform Designer of the On-Chip Memory (RAM)
 	parameter SRAM_DAT_WIDTH = 32, // the SRAM data width, find it in Platform Designer of the On-Chip Memory (RAM)
 	parameter DATA_WIDTH = 24,
 	parameter MUX_WIDTH = 16
